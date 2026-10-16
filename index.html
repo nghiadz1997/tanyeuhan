@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ôn Tập Trắc Nghiệm Lịch Sử 11</title>
+  <title>Ôn Tập Lịch Sử 10 - Hệ Thống Trắc Nghiệm Toàn Diện</title>
   <style>
     :root {
       --primary: #2563eb;
@@ -32,11 +32,11 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 24px 16px 120px 16px;
+      padding: 20px 16px 120px 16px;
     }
 
     .container {
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
@@ -51,7 +51,7 @@
     }
 
     header h1 {
-      font-size: 1.45rem;
+      font-size: 1.4rem;
       color: var(--primary);
       margin-bottom: 6px;
       text-transform: uppercase;
@@ -66,17 +66,19 @@
     /* Tabs */
     .tabs-container {
       display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 14px;
+      min-width: 220px;
+      padding: 12px 14px;
       border: 2px solid var(--border);
       background: var(--card-bg);
       border-radius: 10px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
@@ -107,17 +109,27 @@
     /* Cards */
     .question-card {
       background: var(--card-bg);
-      padding: 22px;
+      padding: 20px;
       border-radius: 12px;
       margin-bottom: 18px;
       border: 1.5px solid var(--border);
       transition: all 0.2s ease;
     }
 
+    .passage-box {
+      background: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+      font-style: italic;
+      color: #334155;
+    }
+
     .question-title {
       font-size: 1.05rem;
       font-weight: 600;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       color: #0f172a;
     }
 
@@ -126,6 +138,7 @@
       margin-right: 6px;
     }
 
+    /* Styles cho phần trắc nghiệm 4 phương án */
     .options-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -180,8 +193,74 @@
       font-weight: 700;
     }
 
-    .option-btn:disabled {
-      cursor: default;
+    /* Styles cho phần Đúng/Sai dạng bảng danh sách */
+    .tf-sub-item {
+      padding: 14px;
+      border-bottom: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tf-sub-item:last-child {
+      border-bottom: none;
+    }
+
+    .tf-text {
+      font-size: 0.96rem;
+      font-weight: 500;
+    }
+
+    .tf-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tf-choice-btn {
+      padding: 6px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tf-choice-btn.selected-true {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+    }
+
+    .tf-choice-btn.selected-false {
+      background: #475569;
+      color: #fff;
+      border-color: #475569;
+    }
+
+    .tf-result-badge {
+      display: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-left: auto;
+    }
+
+    .tf-result-badge.is-correct {
+      display: inline-block;
+      background: var(--correct-bg);
+      color: var(--correct-border);
+      border: 1px solid var(--correct-border);
+    }
+
+    .tf-result-badge.is-wrong {
+      display: inline-block;
+      background: var(--wrong-bg);
+      color: var(--wrong-border);
+      border: 1px solid var(--wrong-border);
     }
 
     .explanation {
@@ -199,10 +278,10 @@
       left: 50%;
       transform: translateX(-50%);
       width: calc(100% - 32px);
-      max-width: 860px;
+      max-width: 900px;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(10px);
-      padding: 14px 20px;
+      padding: 12px 18px;
       border-radius: 12px;
       border: 1px solid var(--border);
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
@@ -213,36 +292,43 @@
     }
 
     .score-stats {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       display: flex;
-      gap: 16px;
+      gap: 14px;
       align-items: center;
     }
 
-    .badge-correct {
-      color: #059669;
+    .btn-group {
+      display: flex;
+      gap: 8px;
     }
 
-    .badge-wrong {
-      color: #dc2626;
+    .action-btn {
+      padding: 9px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .submit-quiz-btn {
+      background: var(--primary);
+      color: #fff;
+    }
+    .submit-quiz-btn:hover {
+      background: var(--primary-hover);
     }
 
     .reset-btn {
       background: #f1f5f9;
       color: var(--text);
       border: 1px solid var(--border);
-      padding: 9px 18px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
     }
-
     .reset-btn:hover {
       background: #e2e8f0;
-      border-color: #cbd5e1;
     }
   </style>
 </head>
@@ -250,43 +336,54 @@
 
   <div class="container">
     <header>
-      <h1>HỆ THỐNG ÔN TẬP LỊCH SỬ 11</h1>
-      <p>Bấm chọn phương án để nhận kết quả đúng / sai trực tiếp</p>
+      <h1>HỆ THỐNG ÔN TẬP LỊCH SỬ 10 TOÀN DIỆN</h1>
+      <p>Bao gồm trắc nghiệm 4 phương án và trắc nghiệm Đúng / Sai theo đoạn tư liệu</p>
     </header>
 
-    <!-- Navigation Tabs -->
+    <!-- Tabs chuyển bài -->
     <div class="tabs-container">
       <button class="tab-btn active" id="tab-btn-1" onclick="switchLesson(1)">
-        BÀI TẬP VỀ NHÀ - BÀI 3 (20 câu)
+        Bài 1: Sự thành lập Liên Xô (20 câu)
       </button>
       <button class="tab-btn" id="tab-btn-2" onclick="switchLesson(2)">
-        TRẮC NGHIỆM BÀI 4 (33 câu)
+        Bài 2: CNXH sau CTTG II (33 câu)
+      </button>
+      <button class="tab-btn" id="tab-btn-3" onclick="switchLesson(3)">
+        Phần II: Câu hỏi Đúng - Sai (6 câu lớn)
       </button>
     </div>
 
-    <!-- Lesson 1 -->
+    <!-- Bài 1 -->
     <div id="lesson-1" class="tab-content active">
       <div id="list-lesson-1"></div>
     </div>
 
-    <!-- Lesson 2 -->
+    <!-- Bài 2 -->
     <div id="lesson-2" class="tab-content">
       <div id="list-lesson-2"></div>
+    </div>
+
+    <!-- Phần II: Đúng Sai -->
+    <div id="lesson-3" class="tab-content">
+      <div id="list-lesson-3"></div>
     </div>
 
     <!-- Sticky Footer Stats -->
     <div class="footer-actions">
       <div class="score-stats" id="stats-display">
         <span>Tiến độ: <strong id="stat-done">0</strong>/<span id="stat-total">20</span></span>
-        <span class="badge-correct">Đúng: <strong id="stat-correct">0</strong></span>
-        <span class="badge-wrong">Sai: <strong id="stat-wrong">0</strong></span>
+        <span style="color:#059669;">Đúng: <strong id="stat-correct">0</strong></span>
+        <span style="color:#dc2626;">Sai: <strong id="stat-wrong">0</strong></span>
       </div>
-      <button type="button" class="reset-btn" onclick="resetCurrentLesson()">Làm lại bài này</button>
+      <div class="btn-group">
+        <button type="button" class="action-btn submit-quiz-btn" id="submit-part2-btn" style="display:none;" onclick="submitPart2()">Nộp bài & Xem đáp án</button>
+        <button type="button" class="action-btn reset-btn" onclick="resetCurrentLesson()">Làm lại</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // BÀI 1: ĐÚNG 20 CÂU BÀI 3 TỪ ẢNH 1, 2, 3
+    // Dữ liệu Bài 1: Trắc nghiệm Bài 3 (20 câu)
     const dataLesson1 = [
       {
         id: 1,
@@ -298,7 +395,7 @@
           D: "Trật tự thế giới hai cực Ianta được xác lập ở châu Âu."
         },
         correct: "C",
-        explain: "Nước Nga sau khi đánh lui thù trong giặc ngoài đã bước vào thời kì hoà bình để xây dựng đất nước."
+        explain: "Nước Nga sau khi đẩy lui thù trong giặc ngoài đã bước vào thời kì hoà bình để xây dựng đất nước."
       },
       {
         id: 2,
@@ -334,7 +431,7 @@
           D: "Hiệp ước Xô – Đức không xâm lược nhau."
         },
         correct: "B",
-        explain: "Đại hội đã thông qua bản Tuyên ngôn thành lập Liên Xô và bản Hiệp ước Liên bang."
+        explain: "Đại hội đã thông qua Tuyên ngôn thành lập Liên Xô và Hiệp ước Liên bang."
       },
       {
         id: 5,
@@ -346,7 +443,7 @@
           D: "Tuyên ngôn thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô viết."
         },
         correct: "D",
-        explain: "Đại hội đã thông qua Tuyên ngôn thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô viết."
+        explain: "Tuyên ngôn thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô viết được Đại hội thông qua."
       },
       {
         id: 6,
@@ -370,7 +467,7 @@
           D: "Liên bang Cộng hòa xã hội chủ nghĩa Xô viết."
         },
         correct: "D",
-        explain: "Liên bang Cộng hòa xã hội chủ nghĩa Xô viết có tên gọi tắt là Liên Xô."
+        explain: "Liên Xô là tên gọi tắt của Liên bang Cộng hòa xã hội chủ nghĩa Xô viết."
       },
       {
         id: 8,
@@ -394,7 +491,7 @@
           D: "Mâu thuẫn giữa nước Nga với các nước cộng hòa Xô viết gay gắt."
         },
         correct: "C",
-        explain: "Các nước cộng hòa Xô Viết có sự thống nhất về các đường lối và chính sách phát triển."
+        explain: "Các nước cộng hòa Xô Viết có sự thống nhất về chính sách và định hướng phát triển."
       },
       {
         id: 10,
@@ -442,7 +539,7 @@
           D: "chống lại cuộc tấn công của phát xít Đức."
         },
         correct: "C",
-        explain: "Mục tiêu cơ bản là hợp tác, hỗ trợ và giúp đỡ lẫn nhau cùng phát triển về mọi mặt."
+        explain: "Hợp tác và giúp đỡ lẫn nhau cùng phát triển về kinh tế, văn hóa và quốc phòng."
       },
       {
         id: 14,
@@ -454,7 +551,7 @@
           D: "Tuyên ngôn thành lập Liên bang Xô viết được thông qua (12/1922)."
         },
         correct: "C",
-        explain: "Bản Hiến pháp đầu tiên tháng 1/1924 đánh dấu sự hoàn thành của bộ máy nhà nước Liên Xô."
+        explain: "Bản Hiến pháp đầu tiên tháng 1/1924 chính thức hoàn thành việc xây dựng bộ máy nhà nước."
       },
       {
         id: 15,
@@ -466,7 +563,7 @@
           D: "sự tồn tại song song 2 chính quyền sau cách mạng."
         },
         correct: "B",
-        explain: "Mâu thuẫn sâu sắc giữa quần chúng nhân dân với chế độ Nga hoàng dẫn tới cách mạng lập chính quyền Xô viết."
+        explain: "Mâu thuẫn gay gắt giữa quần chúng nhân dân với chế độ Nga hoàng dẫn tới các cuộc đấu tranh cách mạng."
       },
       {
         id: 16,
@@ -478,7 +575,7 @@
           D: "đập tan âm mưu xâm lược và nô dịch của các nước đế quốc."
         },
         correct: "C",
-        explain: "Tập hợp các nguồn lực sức mạnh tổng hợp để bảo vệ và xây dựng tổ quốc."
+        explain: "Tạo nên sức mạnh tổng hợp to lớn để xây dựng và bảo vệ đất nước."
       },
       {
         id: 17,
@@ -490,7 +587,7 @@
           D: "Xác lập chế độ xã hội chủ nghĩa trên toàn lãnh thổ Liên Xô."
         },
         correct: "D",
-        explain: "Xác lập vững chắc chế độ xã hội chủ nghĩa trên khắp lãnh thổ Liên Xô."
+        explain: "Xác lập vững chắc chế độ xã hội chủ nghĩa trên toàn lãnh thổ Liên Xô."
       },
       {
         id: 18,
@@ -502,7 +599,7 @@
           D: "Giúp cho các dân tộc thuộc địa tìm ra con đường cứu nước."
         },
         correct: "A",
-        explain: "Tạo nên sức mạnh to lớn giúp nhân dân Liên Xô tự vệ và bảo vệ vững chắc tổ quốc."
+        explain: "Tạo nên sức mạnh tổng hợp giúp nhân dân Liên Xô bảo vệ tổ quốc trước vòng vây thù địch."
       },
       {
         id: 19,
@@ -526,11 +623,11 @@
           D: "Tăng cường sức mạnh cho hệ thống tư bản chủ nghĩa."
         },
         correct: "D",
-        explain: "Sự ra đời của Liên Xô đối trọng và làm thu hẹp hệ thống tư bản chủ nghĩa chứ không tăng cường cho nó."
+        explain: "Sự ra đời của Liên Xô đối trọng và làm suy yếu hệ thống tư bản chủ nghĩa."
       }
     ];
 
-    // BÀI 2: ĐÚNG 33 CÂU BÀI 4 TỪ ẢNH 4, 5, 6
+    // Dữ liệu Bài 2: Trắc nghiệm Bài 4 (33 câu)
     const dataLesson2 = [
       {
         id: 1,
@@ -638,7 +735,7 @@
           D: "Đạt được những tiến bộ vượt bậc trong lĩnh vực công nghệ mới."
         },
         correct: "C",
-        explain: "Trung Quốc phát triển mạnh nhưng chưa phải cường quốc đổi mới sáng tạo đứng đầu thế giới (vẫn đứng sau Mỹ)."
+        explain: "Trung Quốc phát triển mạnh nhưng chưa phải cường quốc đổi mới sáng tạo đứng đầu thế giới."
       },
       {
         id: 10,
@@ -929,12 +1026,84 @@
       }
     ];
 
+    // Dữ liệu Phần II: CÂU HỎI ĐÚNG (Đ) - SAI (S) (Ảnh 1, 2, 3)
+    const dataPart2 = [
+      {
+        id: 1,
+        title: "Câu 1: Đọc đoạn tư liệu sau đây",
+        passage: "“Đến năm 1922, nước Nga Xô viết và các nước cộng hòa Xô viết đồng minh có sự phát triển không đồng đều về kinh tế, văn hóa, chính trị. Trong khi Nga là nước có nền kinh tế công nghiệp tương đối phát triển (nhờ thực hiện chính sách Kinh tế mới), các nước khác vẫn trong tình trạng nông nghiệp lạc hậu. Các nước cộng hòa Xô viết cũng chưa có sự thống nhất về các chính sách phát triển kinh tế, văn hóa, giáo dục,... Điều đó đặt ra yêu cầu phải hợp tác, giúp đỡ lẫn nhau để cùng phát triển”",
+        items: [
+          { key: "a", text: "Liên bang Cộng hòa xã hội chủ nghĩa Xô viết được thành lập năm 1922 trong bối cảnh kinh tế nước Nga và các nước Xô viết khác có sự phát triển tương đối đồng đều", answer: false },
+          { key: "b", text: "Một trong những nguyên nhân thúc đẩy sự thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết là do nhu cầu hợp tác, giúp đỡ nhau để cùng phát triển", answer: true },
+          { key: "c", text: "Trước khi thành lập Liên bang Xô viết, các nước cộng hòa Xô viết đã có sự thống nhất bước đầu về các chính sách phát triển", answer: false },
+          { key: "d", text: "Năm 1922, kinh tế nước Nga phát triển là do thực hiện chính sách Kinh tế mới do Lênin đề xướng", answer: true }
+        ]
+      },
+      {
+        id: 2,
+        title: "Câu 2: Đọc đoạn tư liệu sau đây",
+        passage: "“Liên Xô là nhà nước chuyên chính vô sản đầu tiên, đã tỏ ra sức mạnh phi thường. Ngay từ khi mới thành lập, Liên Xô chẳng những đập tan được bọn phản cách mạng trong nước, mà còn đánh thắng cuộc can thiệp vũ trang của 14 nước đế quốc, chưa đầy 30 năm sau lại đánh thắng hoàn toàn bọn phát xít Đức – Ý – Nhật, chẳng những bảo vệ được nhà nước Xô Viết mình mà còn góp phần to lớn giải phóng nhiều nước khác, cứu cả loài người khỏi ách nô lệ của chủ nghĩa phát xít”.\n(Hồ Chí Minh, Cách mạng tháng Mười vĩ đại mở ra con đường giải phóng cho các dân tộc)",
+        items: [
+          { key: "a", text: "Liên Xô là nhà nước chuyên chính vô sản duy nhất trên thế giới.", answer: false },
+          { key: "b", text: "Vừa mới ra đời Liên Xô đã đánh thắng cuộc can thiệp vũ trang của liên quân 14 nước đế quốc.", answer: true },
+          { key: "c", text: "Liên Xô đánh thắng phát xít Nhật ở châu Á là điều kiện khách quan thuận lợi để nhân dân Việt Nam giành thắng lợi trong Cách mạng tháng Tám năm 1945.", answer: true },
+          { key: "d", text: "Cứu cả loài người thoát khỏi ách nô lệ chủ nghĩa phát xít là trách nhiệm của Liên Xô.", answer: false }
+        ]
+      },
+      {
+        id: 3,
+        title: "Câu 3: Đọc đoạn tư liệu sau đây",
+        passage: "“Liên Xô là nhà nước chuyên chính vô sản đầu tiên, đã tỏ ra sức mạnh phi thường. Ngay từ khi mới thành lập, Liên Xô chẳng những đập tan được bọn phản cách mạng trong nước, mà còn đánh thắng cuộc can thiệp vũ trang của 14 nước đế quốc, chưa đầy 30 năm sau lại đánh thắng hoàn toàn bọn phát xít Đức – Ý – Nhật, chẳng những bảo vệ được nhà nước Xô Viết mình mà còn góp phần to lớn giải phóng nhiều nước khác, cứu cả loài người khỏi ách nô lệ của chủ nghĩa phát xít”.\n(Hồ Chí Minh, Cách mạng tháng Mười vĩ đại mở ra con đường giải phóng cho các dân tộc)",
+        items: [
+          { key: "a", text: "Liên Xô là nhà nước chuyên chính vô sản đầu tiên trên thế giới.", answer: true },
+          { key: "b", text: "Liên Xô đã đánh bại thù trong giặc ngoài sau khi vừa thành lập.", answer: true },
+          { key: "c", text: "Chưa đầy 30 năm sau, Liên Xô bị sụp đổ trong tay chủ nghĩa phát xít.", answer: false },
+          { key: "d", text: "Sự ra đời của Liên Xô chẳng những có ý nghĩa to lớn đối với nhân dân Liên Xô mà cả đối với nhân loại thế giới.", answer: true }
+        ]
+      },
+      {
+        id: 4,
+        title: "Câu 4: Học sinh đọc bảng tư liệu về ý nghĩa ra đời của Liên bang Cộng hòa xã hội chủ nghĩa Xô Viết",
+        passage: "Đối với Liên Xô:\n- Đánh dấu sự sụp đổ hoàn toàn của đế quốc Nga và Chính phủ lâm thời của giai cấp tư sản; xác lập chế độ xã hội chủ nghĩa trên toàn lãnh thổ Liên Xô rộng lớn.\n- Thể hiện quyền dân tộc tự quyết, sự liên minh đoàn kết của các nước cộng hòa Xô viết đồng minh; làm thất bại ý đồ và hành động chia rẽ của các thế lực thù địch trong và ngoài nước.\n- Tạo nên sức mạnh tổng hợp để nhân dân Liên Xô tập trung vào xây dựng chủ nghĩa xã hội và bảo vệ đất nước, chiến thắng ngoại xâm.",
+        items: [
+          { key: "a", text: "Liên bang Cộng hòa xã hội chủ nghĩa Xô Viết ra đời đánh dấu sự sụp đổ hoàn toàn của đế quốc Nga và Chính phủ lâm thời của giai cấp tư sản.", answer: true },
+          { key: "b", text: "Liên bang Cộng hòa xã hội chủ nghĩa Xô Viết ra đời thể hiện được sức mạnh nước lớn của Nga với các nước cộng hòa Xô viết đồng minh.", answer: false },
+          { key: "c", text: "Liên bang Cộng hòa xã hội chủ nghĩa Xô Viết ra đời đã đập tan âm mưu chia rẽ của các thế lực thù địch trong và ngoài nước.", answer: true },
+          { key: "d", text: "Sự ra đời của Liên bang Cộng hòa xã hội chủ nghĩa Xô Viết là tiền đề quan trọng để phát huy sức mạnh tổng hợp xây dựng chủ nghĩa xã hội và bảo vệ đất nước, chiến thắng ngoại xâm.", answer: true }
+        ]
+      },
+      {
+        id: 5,
+        title: "Câu 5: Đọc đoạn tư liệu sau đây",
+        passage: "“Sự ra đời của Liên bang Xô viết là một sự kiện quan trọng. Sức mạnh của Nhà nước Xô viết được củng cố và tăng cường. Đồng thời, đó là thắng lợi của chính sách dân tộc theo chủ nghĩa Lê-nin, của tình hữu nghị anh em giữa các dân tộc trong quốc gia công nông đầu tiên trên thế giới. Lần đầu tiên trong lịch sử, loài người tiến bộ đã được thấy một con đường giải phóng đúng đắn vấn đề dân tộc, đó là thủ tiêu mọi bất bình đẳng dân tộc và xây dựng một cộng đồng anh em giữa các dân tộc”.\n(Nguyễn Anh Thái chủ biên, Lịch sử thế giới hiện đại)",
+        items: [
+          { key: "a", text: "Sự ra đời của Liên bang Xô Viết đã chứng minh học thuyết Mác – Lê nin là đúng đắn, khoa học.", answer: true },
+          { key: "b", text: "Sự ra đời của Liên bang Xô Viết đã đánh dấu chế độ xã hội chủ nghĩa được xác lập trên toàn lãnh thổ Liên Xô rộng lớn.", answer: true },
+          { key: "c", text: "Liên bang Xô Viết ra đời đã xác lập mô hình nhà nước kiểu mới đối lập với mô hình nhà nước tư bản chủ nghĩa.", answer: true },
+          { key: "d", text: "Liên bang Xô Viết được thành lập dựa trên cơ sở hợp tác xây dựng thành công chủ nghĩa xã hội.", answer: true }
+        ]
+      },
+      {
+        id: 6,
+        title: "Câu 6: Đọc đoạn tư liệu sau đây",
+        passage: "“Quá trình thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô Viết phù hợp với lợi ích chung của các dân tộc trên đất nước Xô Viết. Sức mạnh của tình đoàn kết và sự hợp tác, giúp đỡ giữa các dân tộc tạo điều kiện cho sự phát triển nhanh chóng về kinh tế, xã hội của tất cả các nước Cộng hòa, đồng thời tăng cường vị thế của Liên Xô trên trường quốc tế. Sự thành lập Liên Xô dưới sự chỉ đạo của Lê nin đã mở ra con đường giải quyết đúng đắn vấn đề dân tộc trên đất nước Xô Viết trên cơ sở bình đẳng và giúp đỡ lẫn nhau”.\n(SGK Lịch Sử 11, bộ Kết nối tri thức)",
+        items: [
+          { key: "a", text: "Liên Xô là một liên bang bao gồm nhiều nước cộng hòa theo chế độ tư bản chủ nghĩa.", answer: false },
+          { key: "b", text: "Cơ sở thành lập Liên Xô là bình đẳng giữa các dân tộc và giúp đỡ lẫn nhau.", answer: true },
+          { key: "c", text: "Sự thành lập Liên Xô là sự ra đời của nhà nước xã hội chủ nghĩa đầu tiên trên thế giới.", answer: true },
+          { key: "d", text: "Liên Xô ra đời đã tạo tiền đề cho sự ra đời của hệ thống xã hội chủ nghĩa thế giới.", answer: true }
+        ]
+      }
+    ];
+
     let currentLesson = 1;
     const stats = {
       1: { done: 0, correct: 0, wrong: 0, total: 20, answeredItems: {} },
-      2: { done: 0, correct: 0, wrong: 0, total: 33, answeredItems: {} }
+      2: { done: 0, correct: 0, wrong: 0, total: 33, answeredItems: {} },
+      3: { done: 0, correct: 0, wrong: 0, total: 24, userAnswers: {} }
     };
 
+    // Render Bài 1 & Bài 2 (Trắc nghiệm 4 phương án)
     function renderQuiz(list, containerId, lessonNum) {
       const container = document.getElementById(containerId);
       container.innerHTML = "";
@@ -970,9 +1139,44 @@
       });
     }
 
+    // Render Phần II: Đúng / Sai
+    function renderPart2() {
+      const container = document.getElementById("list-lesson-3");
+      container.innerHTML = "";
+
+      dataPart2.forEach((q) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = `card-part2-${q.id}`;
+
+        let itemsHtml = "";
+        q.items.forEach((sub) => {
+          itemsHtml += `
+            <div class="tf-sub-item" id="tf-row-${q.id}-${sub.key}">
+              <div class="tf-text"><strong>${sub.key})</strong> ${sub.text}</div>
+              <div class="tf-actions">
+                <button type="button" class="tf-choice-btn" id="btn-tf-${q.id}-${sub.key}-true" onclick="selectTF(${q.id}, '${sub.key}', true)">ĐÚNG</button>
+                <button type="button" class="tf-choice-btn" id="btn-tf-${q.id}-${sub.key}-false" onclick="selectTF(${q.id}, '${sub.key}', false)">SAI</button>
+                <span class="tf-result-badge" id="badge-tf-${q.id}-${sub.key}"></span>
+              </div>
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-title">${q.title}</div>
+          <div class="passage-box">${q.passage.replace(/\n/g, '<br>')}</div>
+          <div class="tf-list">${itemsHtml}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
     renderQuiz(dataLesson1, "list-lesson-1", 1);
     renderQuiz(dataLesson2, "list-lesson-2", 2);
+    renderPart2();
 
+    // Xử lý trắc nghiệm 4 phương án
     function handleAnswer(lessonNum, qId, selectedKey) {
       const currentStats = stats[lessonNum];
       if (currentStats.answeredItems[qId]) return;
@@ -1016,6 +1220,68 @@
       updateStatsUI();
     }
 
+    // Chọn Đúng / Sai ở Phần II
+    function selectTF(qId, key, val) {
+      const pairKey = `${qId}_${key}`;
+      stats[3].userAnswers[pairKey] = val;
+
+      const btnTrue = document.getElementById(`btn-tf-${qId}-${key}-true`);
+      const btnFalse = document.getElementById(`btn-tf-${qId}-${key}-false`);
+
+      if (val === true) {
+        btnTrue.classList.add("selected-true");
+        btnFalse.classList.remove("selected-false");
+      } else {
+        btnFalse.classList.add("selected-false");
+        btnTrue.classList.remove("selected-true");
+      }
+
+      stats[3].done = Object.keys(stats[3].userAnswers).length;
+      updateStatsUI();
+    }
+
+    // Nộp bài Phần II
+    function submitPart2() {
+      let correct = 0;
+      let wrong = 0;
+
+      dataPart2.forEach((q) => {
+        q.items.forEach((sub) => {
+          const pairKey = `${q.id}_${sub.key}`;
+          const userVal = stats[3].userAnswers[pairKey];
+          const badge = document.getElementById(`badge-tf-${q.id}-${sub.key}`);
+          const btnTrue = document.getElementById(`btn-tf-${q.id}-${sub.key}-true`);
+          const btnFalse = document.getElementById(`btn-tf-${q.id}-${sub.key}-false`);
+
+          btnTrue.disabled = true;
+          btnFalse.disabled = true;
+
+          const correctText = sub.answer ? "ĐÚNG (Đ)" : "SAI (S)";
+
+          if (userVal === undefined) {
+            wrong++;
+            badge.className = "tf-result-badge is-wrong";
+            badge.innerHTML = `Chưa chọn! Đáp án trong giấy: <strong>${correctText}</strong>`;
+          } else if (userVal === sub.answer) {
+            correct++;
+            badge.className = "tf-result-badge is-correct";
+            badge.innerHTML = `✓ Chính xác! Đáp án trong giấy: <strong>${correctText}</strong>`;
+          } else {
+            wrong++;
+            badge.className = "tf-result-badge is-wrong";
+            badge.innerHTML = `✗ Sai! Đáp án trong giấy: <strong>${correctText}</strong>`;
+          }
+        });
+      });
+
+      stats[3].correct = correct;
+      stats[3].wrong = wrong;
+      updateStatsUI();
+
+      alert(`Bạn đã hoàn thành Phần II!\nSố câu đúng: ${correct}/24\nSố câu sai: ${wrong}/24`);
+    }
+
+    // Cập nhật thống kê
     function updateStatsUI() {
       const current = stats[currentLesson];
       document.getElementById("stat-done").textContent = current.done;
@@ -1024,27 +1290,41 @@
       document.getElementById("stat-wrong").textContent = current.wrong;
     }
 
+    // Chuyển Tab
     function switchLesson(lessonNum) {
       currentLesson = lessonNum;
 
-      document.getElementById("tab-btn-1").classList.toggle("active", lessonNum === 1);
-      document.getElementById("tab-btn-2").classList.toggle("active", lessonNum === 2);
+      [1, 2, 3].forEach(num => {
+        document.getElementById(`tab-btn-${num}`).classList.toggle("active", lessonNum === num);
+        document.getElementById(`lesson-${num}`).classList.toggle("active", lessonNum === num);
+      });
 
-      document.getElementById("lesson-1").classList.toggle("active", lessonNum === 1);
-      document.getElementById("lesson-2").classList.toggle("active", lessonNum === 2);
+      const submitBtn = document.getElementById("submit-part2-btn");
+      if (lessonNum === 3) {
+        submitBtn.style.display = "inline-block";
+      } else {
+        submitBtn.style.display = "none";
+      }
 
       updateStatsUI();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Làm lại bài
     function resetCurrentLesson() {
-      if (!confirm(`Bạn có muốn làm lại từ đầu Bài ${currentLesson} không?`)) return;
+      if (!confirm(`Bạn có muốn làm lại nội dung mục này từ đầu không?`)) return;
 
-      const total = currentLesson === 1 ? 20 : 33;
-      stats[currentLesson] = { done: 0, correct: 0, wrong: 0, total: total, answeredItems: {} };
-      const lessonData = currentLesson === 1 ? dataLesson1 : dataLesson2;
+      if (currentLesson === 1) {
+        stats[1] = { done: 0, correct: 0, wrong: 0, total: 20, answeredItems: {} };
+        renderQuiz(dataLesson1, "list-lesson-1", 1);
+      } else if (currentLesson === 2) {
+        stats[2] = { done: 0, correct: 0, wrong: 0, total: 33, answeredItems: {} };
+        renderQuiz(dataLesson2, "list-lesson-2", 2);
+      } else if (currentLesson === 3) {
+        stats[3] = { done: 0, correct: 0, wrong: 0, total: 24, userAnswers: {} };
+        renderPart2();
+      }
 
-      renderQuiz(lessonData, `list-lesson-${currentLesson}`, currentLesson);
       updateStatsUI();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
