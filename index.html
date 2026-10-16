@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trắc Nghiệm Đúng - Sai: Lịch Sử Liên Xô (1922)</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --correct: #10b981;
+      --wrong: #ef4444;
+      --correct-bg: #ecfdf5;
+      --wrong-bg: #fef2f2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 24px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .question-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .question-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .question-index {
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    .options {
+      display: flex;
+      gap: 16px;
+    }
+
+    .option-label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    input[type="radio"]:checked + .option-label {
+      border-color: var(--primary);
+      background-color: #dbeafe;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .is-correct {
+      border-color: var(--correct) !important;
+      background-color: var(--correct-bg);
+    }
+
+    .is-wrong {
+      border-color: var(--wrong) !important;
+      background-color: var(--wrong-bg);
+    }
+
+    .footer-actions {
+      position: sticky;
+      bottom: 16px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 16px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .submit-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .score-box {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>BÀI KIỂM TRA TRẮC NGHIỆM ĐÚNG - SAI</h1>
+      <p>Chủ đề: Sự thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết (30 câu)</p>
+    </header>
+
+    <form id="quiz-form">
+      <div id="questions-list"></div>
+
+      <div class="footer-actions">
+        <div id="score-display" class="score-box">Đã chọn: <span id="answered-count">0</span>/30</div>
+        <button type="button" class="submit-btn" id="submit-btn" onclick="submitQuiz()">Nộp Bài</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const questions = [
+      { id: 1, text: "Năm 1922, Liên bang Xô viết được thành lập trong bối cảnh nước Nga bước vào thời kì hoà bình xây dựng đất nước.", answer: "true", explain: "Bối cảnh lịch sử sau khi bảo vệ vững chắc chính quyền cách mạng và nội chiến kết thúc." },
+      { id: 2, text: "Nga là một trong những nước cộng hòa đầu tiên gia nhập Liên bang Xô viết vào năm 1922.", answer: "true", explain: "4 nước đầu tiên gồm: Nga, U-crai-na, Bê-lô-rút-xi-a và Ngoại Cáp-ca-dơ." },
+      { id: 3, text: "Nhật Bản và Trung Quốc là hai trong số các nước gia nhập Liên Xô đợt đầu tiên năm 1922.", answer: "false", explain: "Chỉ các nước cộng hòa Xô viết thuộc lãnh thổ đế quốc Nga cũ thành lập Liên Xô." },
+      { id: 4, text: "U-crai-na là một trong 4 nước cộng hòa đầu tiên gia nhập Liên bang Xô viết năm 1922.", answer: "true", explain: "U-crai-na cùng Nga, Bê-lô-rút-xi-a, Ngoại Cáp-ca-dơ ký hiệp ước liên bang." },
+      { id: 5, text: "Đại hội lần thứ nhất các Xô viết toàn Liên bang (12/1922) tại Mátxcơva đã thông qua Hiệp ước Xô – Đức không xâm lược nhau.", answer: "false", explain: "Đại hội đã thông qua Tuyên ngôn và Hiệp ước thành lập Liên Xô." },
+      { id: 6, text: "Tuyên ngôn thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết được thông qua vào cuối tháng 12 năm 1922.", answer: "true", explain: "Diễn ra tại Đại hội lần thứ nhất các Xô viết toàn Liên bang ở Mátxcơva." },
+      { id: 7, text: "Đại hội lần thứ nhất các Xô viết toàn Liên bang đã tuyên bố thành lập Cộng đồng các quốc gia độc lập (SNG).", answer: "false", explain: "SNG thành lập năm 1991 khi Liên Xô tan rã, năm 1922 là thành lập Liên bang Xô viết." },
+      { id: 8, text: "Tên gọi tắt của Liên bang Cộng hòa xã hội chủ nghĩa Xô viết là Liên Xô.", answer: "true", explain: "Tên chính thức viết tắt thường dùng là Liên Xô." },
+      { id: 9, text: "Năm 1924, bản Hiến pháp đầu tiên của Liên Xô được thông qua đã hoàn thành quá trình thành lập nhà nước.", answer: "true", explain: "Hiến pháp 1924 hoàn thiện hệ thống bộ máy và thể chế liên bang." },
+      { id: 10, text: "Bản Hiến pháp năm 1924 của Liên Xô đánh dấu sự thành lập nhà nước tư bản hiện đại đầu tiên trên thế giới.", answer: "false", explain: "Liên Xô là nhà nước xã hội chủ nghĩa đầu tiên trên thế giới." },
+      { id: 11, text: "Một trong những bối cảnh thành lập Liên Xô là các nước cộng hòa Xô viết có sự thống nhất về chính sách phát triển.", answer: "true", explain: "Sự đồng thuận về đường lối xây dựng CNXH là cơ sở cho sự liên minh." },
+      { id: 12, text: "Khi mới thành lập năm 1922, Liên Xô gồm 4 nước: Nga, Bê-lô-rút-xi-a, U-crai-na và Ngoại Cáp-ca-dơ.", answer: "true", explain: "Được ghi rõ trong văn kiện Đại hội Xô viết toàn Liên bang lần thứ nhất." },
+      { id: 13, text: "Latvia và Kazakhstan là hai nước nằm trong danh sách 4 nước sáng lập Liên bang Xô viết năm 1922.", answer: "false", explain: "Latvia và Kazakhstan gia nhập liên bang ở những giai đoạn sau này." },
+      { id: 14, text: "Mối quan hệ căng thẳng với các nước đế quốc là một nhân tố thúc đẩy sự liên minh xác lập Liên bang Xô viết.", answer: "true", explain: "Bối cảnh bao vây, chống phá của chủ nghĩa đế quốc đòi hỏi các nước Xô viết phải gắn kết tự vệ." },
+      { id: 15, text: "Mục tiêu cơ bản của việc thành lập Nhà nước Liên bang Xô viết là hợp tác, giúp đỡ lẫn nhau để cùng phát triển.", answer: "true", explain: "Nhằm tạo sức mạnh tổng hợp phục hồi và phát triển kinh tế - quốc phòng." },
+      { id: 16, text: "Một trong những mục tiêu thành lập Liên Xô năm 1922 là để chuẩn bị liên minh chống phát xít Đức.", answer: "false", explain: "Chủ nghĩa phát xít Đức mãi đến năm 1933 mới lên nắm quyền." },
+      { id: 17, text: "Mâu thuẫn gay gắt giữa nhân dân với chế độ Nga hoàng là một trong những tiền đề lịch sử sâu xa dẫn tới cách mạng.", answer: "true", explain: "Tạo tiền đề dẫn tới Cách mạng tháng Hai và tháng Mười 1917, tiến tới lập chính quyền Xô viết." },
+      { id: 18, text: "Sự ra đời của Liên Xô đã tạo nên sức mạnh tổng hợp để xây dựng chủ nghĩa xã hội và bảo vệ đất nước.", answer: "true", explain: "Tập hợp các nguồn lực sức mạnh về mọi mặt kinh tế, quân sự và chính trị." },
+      { id: 19, text: "Việc thành lập Liên Xô mang lại ý nghĩa là thúc đẩy sự phát triển của hệ thống chủ nghĩa tư bản châu Âu.", answer: "false", explain: "Liên bang Xô viết đứng đối lập và cạnh tranh với hệ thống tư bản chủ nghĩa." },
+      { id: 20, text: "Đối với nhân dân Nga, việc thành lập Liên Xô có ý nghĩa xác lập chế độ xã hội chủ nghĩa trên toàn lãnh thổ.", answer: "true", explain: "Khẳng định sự đúng đắn và thắng lợi của con đường cách mạng vô sản." },
+      { id: 21, text: "Đối với Liên Xô, sự kiện thành lập năm 1922 giúp tạo sức mạnh để nhân dân bảo vệ tổ quốc.", answer: "true", explain: "Giúp đánh tan các âm mưu chia rẽ và can thiệp vũ trang bên ngoài." },
+      { id: 22, text: "Về mặt quốc tế, sự ra đời của Liên Xô đã tạo tiền đề cho sự ra đời của hệ thống xã hội chủ nghĩa sau này.", answer: "true", explain: "Sau Chiến tranh thế giới thứ hai, hệ thống XHCN mới chính thức hình thành hoàn chỉnh." },
+      { id: 23, text: "Ngay khi Liên bang Xô viết ra đời năm 1922, chủ nghĩa xã hội đã lập tức trở thành hệ thống thế giới.", answer: "false", explain: "Lúc này Liên Xô là quốc gia xã hội chủ nghĩa duy nhất đứng giữa vòng vây tư bản." },
+      { id: 24, text: "Thành lập Liên Xô năm 1922 là sự kiện giúp tăng cường sức mạnh cho hệ thống tư bản chủ nghĩa.", answer: "false", explain: "Sự kiện này thu hẹp tầm ảnh hưởng và làm suy yếu hệ thống đế quốc tư bản." },
+      { id: 25, text: "Sự ra đời của Liên Xô đã chứng minh học thuyết Mác – Lênin về vấn đề dân tộc là đúng đắn, khoa học.", answer: "true", explain: "Chứng minh các dân tộc bình đẳng hoàn toàn có thể tự nguyện đoàn kết xây dựng nhà nước mới." },
+      { id: 26, text: "Năm 1922, nền kinh tế giữa các nước cộng hòa Xô viết đã đạt trình độ phát triển công nghiệp hoàn toàn đồng đều.", answer: "false", explain: "Nga có công nghiệp tương đối phát triển, còn các nước cộng hòa khác chủ yếu vẫn là nông nghiệp lạc hậu." },
+      { id: 27, text: "Việc liên kết các nước cộng hòa thành Liên bang giúp khắc phục tình trạng phân tán và chênh lệch kinh tế.", answer: "true", explain: "Tạo điều kiện điều phối nguồn lực và phân công lao động đồng bộ giữa các nước thành viên." },
+      { id: 28, text: "Liên Xô là một nhà nước quân chủ liên minh được thành lập trên cơ sở tự nguyện của các dân tộc.", answer: "false", explain: "Liên Xô là nhà nước chuyên chính vô sản / xã hội chủ nghĩa, không phải nhà nước quân chủ." },
+      { id: 29, text: "Sự thành lập Liên Xô đã cổ vũ mạnh mẽ tinh thần đấu tranh tự giải phóng của các dân tộc bị áp bức trên thế giới.", answer: "true", explain: "Trở thành nguồn cổ vũ và điểm tựa vững chắc cho phong trào giải phóng dân tộc." },
+      { id: 30, text: "Tháng 3/1921, nước Nga thực hiện Chính sách Kinh tế mới (NEP) nhằm khôi phục nền kinh tế sau chiến tranh.", answer: "true", explain: "Chính sách NEP do V.I. Lênin đề xướng là cơ sở kinh tế quan trọng trước thềm thành lập Liên bang." }
+    ];
+
+    const container = document.getElementById("questions-list");
+    const countDisplay = document.getElementById("answered-count");
+
+    // Render danh sách câu hỏi
+    questions.forEach((q, idx) => {
+      const card = document.createElement("div");
+      card.className = "question-card";
+      card.id = `card-${q.id}`;
+      card.innerHTML = `
+        <div class="question-title">
+          <span class="question-index">Câu ${idx + 1}:</span> ${q.text}
+        </div>
+        <div class="options">
+          <input type="radio" id="q${q.id}_true" name="question_${q.id}" value="true" onchange="updateCount()">
+          <label class="option-label" for="q${q.id}_true">ĐÚNG</label>
+
+          <input type="radio" id="q${q.id}_false" name="question_${q.id}" value="false" onchange="updateCount()">
+          <label class="option-label" for="q${q.id}_false">SAI</label>
+        </div>
+        <div class="explanation" id="explain-${q.id}"></div>
+      `;
+      container.appendChild(card);
+    });
+
+    function updateCount() {
+      const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+      countDisplay.textContent = answered;
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      let unanswered = 0;
+
+      questions.forEach((q) => {
+        const selected = document.querySelector(`input[name="question_${q.id}"]:checked`);
+        const card = document.getElementById(`card-${q.id}`);
+        const explainBox = document.getElementById(`explain-${q.id}`);
+
+        explainBox.style.display = "block";
+
+        if (!selected) {
+          unanswered++;
+          card.classList.add("is-wrong");
+          explainBox.style.background = "#fff1f2";
+          explainBox.style.color = "#991b1b";
+          explainBox.innerHTML = `<strong>Chưa trả lời!</strong> Đáp án đúng là: <strong>${q.answer === "true" ? "ĐÚNG" : "SAI"}</strong>. (${q.explain})`;
+        } else if (selected.value === q.answer) {
+          score++;
+          card.classList.add("is-correct");
+          explainBox.style.background = "#ecfdf5";
+          explainBox.style.color = "#065f46";
+          explainBox.innerHTML = `<strong>Chính xác!</strong> ${q.explain}`;
+        } else {
+          card.classList.add("is-wrong");
+          explainBox.style.background = "#fff1f2";
+          explainBox.style.color = "#991b1b";
+          explainBox.innerHTML = `<strong>Sai rồi!</strong> Đáp án đúng là: <strong>${q.answer === "true" ? "ĐÚNG" : "SAI"}</strong>. (${q.explain})`;
+        }
+      });
+
+      // Hiển thị điểm số
+      const resultBox = document.getElementById("score-display");
+      resultBox.innerHTML = `Điểm số: ${score}/${questions.length} (${((score / questions.length) * 10).toFixed(1)} điểm)`;
+      
+      const submitBtn = document.getElementById("submit-btn");
+      submitBtn.textContent = "Làm lại";
+      submitBtn.setAttribute("onclick", "location.reload()");
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
