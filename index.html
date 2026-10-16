@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trắc Nghiệm Đúng - Sai: Lịch Sử Liên Xô (1922)</title>
+  <title>Trắc Nghiệm Lịch Sử 10 - Bài 3: Sự Thành Lập Liên Bang Xô Viết</title>
   <style>
     :root {
       --primary: #2563eb;
@@ -30,18 +30,18 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 24px 16px;
+      padding: 24px 16px 100px 16px;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 840px;
       margin: 0 auto;
     }
 
     header {
       background: var(--card-bg);
       padding: 24px;
-      border-radius: 12px;
+      border-radius: 14px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       margin-bottom: 24px;
       text-align: center;
@@ -49,9 +49,10 @@
     }
 
     header h1 {
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       color: var(--primary);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
     }
 
     header p {
@@ -61,9 +62,9 @@
 
     .question-card {
       background: var(--card-bg);
-      padding: 20px;
+      padding: 22px;
       border-radius: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       border: 1px solid var(--border);
       transition: all 0.2s ease;
     }
@@ -72,6 +73,7 @@
       font-size: 1.05rem;
       font-weight: 600;
       margin-bottom: 16px;
+      color: #0f172a;
     }
 
     .question-index {
@@ -79,29 +81,35 @@
       margin-right: 6px;
     }
 
-    .options {
-      display: flex;
-      gap: 16px;
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
 
     .option-label {
-      flex: 1;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px;
-      border: 2px solid var(--border);
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
       border-radius: 8px;
       cursor: pointer;
-      font-weight: 500;
+      font-size: 0.95rem;
       transition: all 0.2s ease;
       user-select: none;
+      background: #fff;
     }
 
     .option-label:hover {
       border-color: var(--primary);
       background: #eff6ff;
+    }
+
+    .option-key {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 24px;
     }
 
     input[type="radio"] {
@@ -111,16 +119,16 @@
     input[type="radio"]:checked + .option-label {
       border-color: var(--primary);
       background-color: #dbeafe;
-      color: var(--primary);
       font-weight: 600;
+      color: #1e40af;
     }
 
     .explanation {
       display: none;
       margin-top: 14px;
-      padding: 12px 14px;
+      padding: 12px 16px;
       border-radius: 8px;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
     }
 
     .is-correct {
@@ -134,18 +142,22 @@
     }
 
     .footer-actions {
-      position: sticky;
+      position: fixed;
       bottom: 16px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      padding: 16px 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 840px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      padding: 14px 20px;
       border-radius: 12px;
       border: 1px solid var(--border);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      z-index: 100;
     }
 
     .submit-btn {
@@ -165,7 +177,7 @@
     }
 
     .score-box {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--primary);
     }
@@ -175,88 +187,426 @@
 
   <div class="container">
     <header>
-      <h1>BÀI KIỂM TRA TRẮC NGHIỆM ĐÚNG - SAI</h1>
-      <p>Chủ đề: Sự thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết (30 câu)</p>
+      <h1>BÀI TẬP TRẮC NGHIỆM LỊCH SỬ 10</h1>
+      <p>Chủ đề: Sự thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết (30 câu - 4 phương án)</p>
     </header>
 
     <form id="quiz-form">
       <div id="questions-list"></div>
 
       <div class="footer-actions">
-        <div id="score-display" class="score-box">Đã chọn: <span id="answered-count">0</span>/30</div>
+        <div id="score-display" class="score-box">Đã làm: <span id="answered-count">0</span>/30</div>
         <button type="button" class="submit-btn" id="submit-btn" onclick="submitQuiz()">Nộp Bài</button>
       </div>
     </form>
   </div>
 
   <script>
-    const questions = [
-      { id: 1, text: "Năm 1922, Liên bang Xô viết được thành lập trong bối cảnh nước Nga bước vào thời kì hoà bình xây dựng đất nước.", answer: "true", explain: "Bối cảnh lịch sử sau khi bảo vệ vững chắc chính quyền cách mạng và nội chiến kết thúc." },
-      { id: 2, text: "Nga là một trong những nước cộng hòa đầu tiên gia nhập Liên bang Xô viết vào năm 1922.", answer: "true", explain: "4 nước đầu tiên gồm: Nga, U-crai-na, Bê-lô-rút-xi-a và Ngoại Cáp-ca-dơ." },
-      { id: 3, text: "Nhật Bản và Trung Quốc là hai trong số các nước gia nhập Liên Xô đợt đầu tiên năm 1922.", answer: "false", explain: "Chỉ các nước cộng hòa Xô viết thuộc lãnh thổ đế quốc Nga cũ thành lập Liên Xô." },
-      { id: 4, text: "U-crai-na là một trong 4 nước cộng hòa đầu tiên gia nhập Liên bang Xô viết năm 1922.", answer: "true", explain: "U-crai-na cùng Nga, Bê-lô-rút-xi-a, Ngoại Cáp-ca-dơ ký hiệp ước liên bang." },
-      { id: 5, text: "Đại hội lần thứ nhất các Xô viết toàn Liên bang (12/1922) tại Mátxcơva đã thông qua Hiệp ước Xô – Đức không xâm lược nhau.", answer: "false", explain: "Đại hội đã thông qua Tuyên ngôn và Hiệp ước thành lập Liên Xô." },
-      { id: 6, text: "Tuyên ngôn thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết được thông qua vào cuối tháng 12 năm 1922.", answer: "true", explain: "Diễn ra tại Đại hội lần thứ nhất các Xô viết toàn Liên bang ở Mátxcơva." },
-      { id: 7, text: "Đại hội lần thứ nhất các Xô viết toàn Liên bang đã tuyên bố thành lập Cộng đồng các quốc gia độc lập (SNG).", answer: "false", explain: "SNG thành lập năm 1991 khi Liên Xô tan rã, năm 1922 là thành lập Liên bang Xô viết." },
-      { id: 8, text: "Tên gọi tắt của Liên bang Cộng hòa xã hội chủ nghĩa Xô viết là Liên Xô.", answer: "true", explain: "Tên chính thức viết tắt thường dùng là Liên Xô." },
-      { id: 9, text: "Năm 1924, bản Hiến pháp đầu tiên của Liên Xô được thông qua đã hoàn thành quá trình thành lập nhà nước.", answer: "true", explain: "Hiến pháp 1924 hoàn thiện hệ thống bộ máy và thể chế liên bang." },
-      { id: 10, text: "Bản Hiến pháp năm 1924 của Liên Xô đánh dấu sự thành lập nhà nước tư bản hiện đại đầu tiên trên thế giới.", answer: "false", explain: "Liên Xô là nhà nước xã hội chủ nghĩa đầu tiên trên thế giới." },
-      { id: 11, text: "Một trong những bối cảnh thành lập Liên Xô là các nước cộng hòa Xô viết có sự thống nhất về chính sách phát triển.", answer: "true", explain: "Sự đồng thuận về đường lối xây dựng CNXH là cơ sở cho sự liên minh." },
-      { id: 12, text: "Khi mới thành lập năm 1922, Liên Xô gồm 4 nước: Nga, Bê-lô-rút-xi-a, U-crai-na và Ngoại Cáp-ca-dơ.", answer: "true", explain: "Được ghi rõ trong văn kiện Đại hội Xô viết toàn Liên bang lần thứ nhất." },
-      { id: 13, text: "Latvia và Kazakhstan là hai nước nằm trong danh sách 4 nước sáng lập Liên bang Xô viết năm 1922.", answer: "false", explain: "Latvia và Kazakhstan gia nhập liên bang ở những giai đoạn sau này." },
-      { id: 14, text: "Mối quan hệ căng thẳng với các nước đế quốc là một nhân tố thúc đẩy sự liên minh xác lập Liên bang Xô viết.", answer: "true", explain: "Bối cảnh bao vây, chống phá của chủ nghĩa đế quốc đòi hỏi các nước Xô viết phải gắn kết tự vệ." },
-      { id: 15, text: "Mục tiêu cơ bản của việc thành lập Nhà nước Liên bang Xô viết là hợp tác, giúp đỡ lẫn nhau để cùng phát triển.", answer: "true", explain: "Nhằm tạo sức mạnh tổng hợp phục hồi và phát triển kinh tế - quốc phòng." },
-      { id: 16, text: "Một trong những mục tiêu thành lập Liên Xô năm 1922 là để chuẩn bị liên minh chống phát xít Đức.", answer: "false", explain: "Chủ nghĩa phát xít Đức mãi đến năm 1933 mới lên nắm quyền." },
-      { id: 17, text: "Mâu thuẫn gay gắt giữa nhân dân với chế độ Nga hoàng là một trong những tiền đề lịch sử sâu xa dẫn tới cách mạng.", answer: "true", explain: "Tạo tiền đề dẫn tới Cách mạng tháng Hai và tháng Mười 1917, tiến tới lập chính quyền Xô viết." },
-      { id: 18, text: "Sự ra đời của Liên Xô đã tạo nên sức mạnh tổng hợp để xây dựng chủ nghĩa xã hội và bảo vệ đất nước.", answer: "true", explain: "Tập hợp các nguồn lực sức mạnh về mọi mặt kinh tế, quân sự và chính trị." },
-      { id: 19, text: "Việc thành lập Liên Xô mang lại ý nghĩa là thúc đẩy sự phát triển của hệ thống chủ nghĩa tư bản châu Âu.", answer: "false", explain: "Liên bang Xô viết đứng đối lập và cạnh tranh với hệ thống tư bản chủ nghĩa." },
-      { id: 20, text: "Đối với nhân dân Nga, việc thành lập Liên Xô có ý nghĩa xác lập chế độ xã hội chủ nghĩa trên toàn lãnh thổ.", answer: "true", explain: "Khẳng định sự đúng đắn và thắng lợi của con đường cách mạng vô sản." },
-      { id: 21, text: "Đối với Liên Xô, sự kiện thành lập năm 1922 giúp tạo sức mạnh để nhân dân bảo vệ tổ quốc.", answer: "true", explain: "Giúp đánh tan các âm mưu chia rẽ và can thiệp vũ trang bên ngoài." },
-      { id: 22, text: "Về mặt quốc tế, sự ra đời của Liên Xô đã tạo tiền đề cho sự ra đời của hệ thống xã hội chủ nghĩa sau này.", answer: "true", explain: "Sau Chiến tranh thế giới thứ hai, hệ thống XHCN mới chính thức hình thành hoàn chỉnh." },
-      { id: 23, text: "Ngay khi Liên bang Xô viết ra đời năm 1922, chủ nghĩa xã hội đã lập tức trở thành hệ thống thế giới.", answer: "false", explain: "Lúc này Liên Xô là quốc gia xã hội chủ nghĩa duy nhất đứng giữa vòng vây tư bản." },
-      { id: 24, text: "Thành lập Liên Xô năm 1922 là sự kiện giúp tăng cường sức mạnh cho hệ thống tư bản chủ nghĩa.", answer: "false", explain: "Sự kiện này thu hẹp tầm ảnh hưởng và làm suy yếu hệ thống đế quốc tư bản." },
-      { id: 25, text: "Sự ra đời của Liên Xô đã chứng minh học thuyết Mác – Lênin về vấn đề dân tộc là đúng đắn, khoa học.", answer: "true", explain: "Chứng minh các dân tộc bình đẳng hoàn toàn có thể tự nguyện đoàn kết xây dựng nhà nước mới." },
-      { id: 26, text: "Năm 1922, nền kinh tế giữa các nước cộng hòa Xô viết đã đạt trình độ phát triển công nghiệp hoàn toàn đồng đều.", answer: "false", explain: "Nga có công nghiệp tương đối phát triển, còn các nước cộng hòa khác chủ yếu vẫn là nông nghiệp lạc hậu." },
-      { id: 27, text: "Việc liên kết các nước cộng hòa thành Liên bang giúp khắc phục tình trạng phân tán và chênh lệch kinh tế.", answer: "true", explain: "Tạo điều kiện điều phối nguồn lực và phân công lao động đồng bộ giữa các nước thành viên." },
-      { id: 28, text: "Liên Xô là một nhà nước quân chủ liên minh được thành lập trên cơ sở tự nguyện của các dân tộc.", answer: "false", explain: "Liên Xô là nhà nước chuyên chính vô sản / xã hội chủ nghĩa, không phải nhà nước quân chủ." },
-      { id: 29, text: "Sự thành lập Liên Xô đã cổ vũ mạnh mẽ tinh thần đấu tranh tự giải phóng của các dân tộc bị áp bức trên thế giới.", answer: "true", explain: "Trở thành nguồn cổ vũ và điểm tựa vững chắc cho phong trào giải phóng dân tộc." },
-      { id: 30, text: "Tháng 3/1921, nước Nga thực hiện Chính sách Kinh tế mới (NEP) nhằm khôi phục nền kinh tế sau chiến tranh.", answer: "true", explain: "Chính sách NEP do V.I. Lênin đề xướng là cơ sở kinh tế quan trọng trước thềm thành lập Liên bang." }
+    const quizData = [
+      {
+        id: 1,
+        question: "Năm 1922, Liên bang Cộng hoà xã hội chủ nghĩa Xô viết được thành lập trong bối cảnh nào sau đây?",
+        options: {
+          A: "Nước Nga đã hoàn thành công cuộc khôi phục kinh tế.",
+          B: "Chiến tranh thế giới thứ hai bùng nổ và lan rộng.",
+          C: "Nước Nga bước vào thời kì hoà bình xây dựng đất nước.",
+          D: "Trật tự thế giới hai cực Ianta được xác lập ở châu Âu."
+        },
+        correct: "C",
+        explain: "Nước Nga sau khi đánh lui thù trong giặc ngoài đã bước vào thời kì hoà bình để xây dựng đất nước."
+      },
+      {
+        id: 2,
+        question: "Một trong những nước cộng hoà đầu tiên gia nhập Liên bang Cộng hoà xã hội chủ nghĩa Xô viết vào năm 1922 là",
+        options: {
+          A: "Nga.",
+          B: "Nhật Bản.",
+          C: "Campuchia.",
+          D: "Lào."
+        },
+        correct: "A",
+        explain: "Nga là một trong bốn nước cộng hòa đầu tiên tham gia ký kết hiệp ước thành lập Liên Xô."
+      },
+      {
+        id: 3,
+        question: "Một trong những nước cộng hoà đầu tiên gia nhập Liên bang Cộng hoà xã hội chủ nghĩa Xô viết vào năm 1922 là",
+        options: {
+          A: "U-crai-na.",
+          B: "Trung Quốc.",
+          C: "Ai Cập.",
+          D: "Ấn Độ."
+        },
+        correct: "A",
+        explain: "4 nước cộng hòa đầu tiên gồm: Nga, U-crai-na, Bê-lô-rút-xi-a và Ngoại Cáp-ca-dơ."
+      },
+      {
+        id: 4,
+        question: "Đại hội lần thứ nhất các Xô viết toàn Liên bang (1922) tại Mátxcơva đã thông qua văn kiện nào sau đây?",
+        options: {
+          A: "Hiến chương Liên hợp quốc.",
+          B: "Tuyên ngôn thành lập Liên Xô.",
+          C: "Hiệp ước thân thiện và hợp tác ở Đông Nam Á.",
+          D: "Hiệp ước Xô – Đức không xâm lược nhau."
+        },
+        correct: "B",
+        explain: "Đại hội đã thông qua bản Tuyên ngôn thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết và bản Hiệp ước Liên bang."
+      },
+      {
+        id: 5,
+        question: "Năm 1922, Đại hội Xô viết toàn Liên bang đã thông qua",
+        options: {
+          A: "kế hoạch tổ chức Đại hội Xô viết toàn Nga.",
+          B: "sắc lệnh hoà bình rút nước Nga ra khỏi chiến tranh.",
+          C: "danh sách Chính phủ dân chủ cộng hòa trên toàn nước Nga.",
+          D: "Tuyên ngôn thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô viết."
+        },
+        correct: "D",
+        explain: "Văn kiện lịch sử chính thức được thông qua tại Đại hội lần thứ nhất."
+      },
+      {
+        id: 6,
+        question: "Đại hội lần thứ nhất các Xô viết toàn Liên bang diễn ra cuối tháng 12 năm 1922 đã tuyên bố thành lập",
+        options: {
+          A: "Liên bang cộng hòa xã hội chủ nghĩa Xô viết (gọi tắt là Liên Xô).",
+          B: "Cộng hòa Xô viết đầu tiên là Nga, Ucraina, Bêlarút và Capcazơ.",
+          C: "Cộng đồng các quốc gia độc lập (SNG).",
+          D: "nước Nga Xô viết Xã hội chủ nghĩa."
+        },
+        correct: "A",
+        explain: "Tuyên bố chính thức thành lập nhà nước Liên bang Xô viết (Liên Xô)."
+      },
+      {
+        id: 7,
+        question: "Liên Xô là tên gọi tắt của",
+        options: {
+          A: "Liên minh các đảng phái chính trị ở nước Nga.",
+          B: "Phong trào liên kết các nước cộng hòa Xô viết.",
+          C: "Liên hiệp các nước xã hội chủ nghĩa Xô viết.",
+          D: "Liên bang Cộng hòa xã hội chủ nghĩa Xô viết."
+        },
+        correct: "D",
+        explain: "Liên Xô là cách gọi tắt chính thức của Liên bang Cộng hòa xã hội chủ nghĩa Xô viết."
+      },
+      {
+        id: 8,
+        question: "Năm 1924, Hiến pháp đầu tiên của Liên Xô đã",
+        options: {
+          A: "hoàn thành quá trình thành lập nhà nước.",
+          B: "kết thúc cuộc đấu tranh bảo vệ tổ quốc.",
+          C: "thực hiện quyền bình đẳng, tự quyết của các dân tộc.",
+          D: "giải quyết vấn đề hoà bình cho nhân dân ruộng đất cho nông dân."
+        },
+        correct: "A",
+        explain: "Bản Hiến pháp năm 1924 được thông qua đã hoàn thành căn bản quá trình thành lập Nhà nước Liên bang Xô viết."
+      },
+      {
+        id: 9,
+        question: "Liên bang Cộng hoà xã hội chủ nghĩa Xô viết được thành lập trong bối cảnh nào?",
+        options: {
+          A: "Các nước cộng hòa Xô viết phát triển không đồng đều về kinh tế.",
+          B: "Mâu thuẫn giữa các dân tộc Nga với chế độ Nga Hoàng gay gắt.",
+          C: "Các nước cộng hòa Xô Viết có sự thống nhất về chính sách phát triển.",
+          D: "Mâu thuẫn giữa nước Nga với các nước cộng hòa Xô viết gay gắt."
+        },
+        correct: "C",
+        explain: "Sự tương đồng về thể chế và sự thống nhất về chính sách đối nội, đối ngoại đã thúc đẩy việc liên minh."
+      },
+      {
+        id: 10,
+        question: "Năm 1924, bản hiến pháp đầu tiên của Liên Xô được thông qua, đánh dấu",
+        options: {
+          A: "sự hoàn thành quá trình thành lập Nhà nước Liên bang Cộng hoà xã hội chủ nghĩa Xô viết.",
+          B: "sự hoàn thành quá trình thành lập Nhà nước chủ nghĩa tư bản hiện đại đầu tiên trên thế giới.",
+          C: "sự xác lập Nhà nước vô sản đầu tiên trên thế giới đấu tranh cho quyền lợi của mọi giai cấp.",
+          D: "sự xác lập và xây dựng mô hình nhà nước mới trên cơ sở mô hình nhà nước phong kiến."
+        },
+        correct: "A",
+        explain: "Đánh dấu sự hoàn thiện về mặt pháp lý và thể chế của Liên bang Xô viết."
+      },
+      {
+        id: 11,
+        question: "Khi mới thành lập, Liên Xô gồm 4 nước Cộng hoà Xô viết đầu tiên là:",
+        options: {
+          A: "Nga, U-crai-na, Ngoại Cáp-ca-dơ và Latvia.",
+          B: "Nga, Bê-lô-rút-xi-a, Ngoại Cáp-ca-dơ và Latvia.",
+          C: "Nga, Bê-lô-rút-xi-a, U-crai-na và Ngoại Cáp-ca-dơ.",
+          D: "Nga, Bê-lô-rút-xi-a, U-crai-na, Kazakhtan."
+        },
+        correct: "C",
+        explain: "Bốn nước thành viên sáng lập ban đầu là Nga, Bê-lô-rút-xi-a, U-crai-na và Ngoại Cáp-ca-dơ."
+      },
+      {
+        id: 12,
+        question: "Liên Bang Cộng hòa xã hội chủ nghĩa Xô Viết được xác lập trong bối cảnh",
+        options: {
+          A: "xu thế toàn cầu hóa diễn ra mạnh mẽ.",
+          B: "cuộc chiến giữa các nước Xô viết và Đức.",
+          C: "mối quan hệ căng thẳng giữa Nga Xô viết và Hoa Kỳ sau Chiến tranh thế giới thứ nhất.",
+          D: "cuộc xung đột gay gắt về quyền lực giữa các nước phương Tây đang diễn ra ở Đức."
+        },
+        correct: "C",
+        explain: "Các cường quốc tư bản bao vây, cô lập và căng thẳng đối đầu với nhà nước Xô viết."
+      },
+      {
+        id: 13,
+        question: "Mục tiêu của việc thành lập Nhà nước Liên bang Cộng hoà xã hội chủ nghĩa Xô viết là",
+        options: {
+          A: "chống lại sự tấn công của 14 nước đế quốc.",
+          B: "thực hiện hiệu quả chính sách Kinh tế mới.",
+          C: "hợp tác, giúp đỡ lẫn nhau để cùng phát triển.",
+          D: "chống lại cuộc tấn công của phát xít Đức."
+        },
+        correct: "C",
+        explain: "Mục tiêu trọng tâm là liên kết, giúp đỡ lẫn nhau cùng phát triển về kinh tế, văn hóa và quốc phòng."
+      },
+      {
+        id: 14,
+        question: "Sự kiện nào dưới đây là mốc đánh dấu quá trình thành lập nhà nước Liên bang Cộng hòa xã hội chủ nghĩa xô viết đã hoàn thành?",
+        options: {
+          A: "nước Nga thực hiện chính sách Kinh tế mới (3/1921).",
+          B: "bản Hiệp ước Liên bang được thông qua (12/1922).",
+          C: "bản Hiến pháp đầu tiên của Liên Xô được thông qua (1/1924).",
+          D: "Tuyên ngôn thành lập Liên bang Xô viết được thông qua (12/1922)."
+        },
+        correct: "C",
+        explain: "Bản Hiến pháp đầu tiên năm 1924 đánh dấu sự hoàn thiện và kết thúc quá trình thành lập bộ máy nhà nước Liên Xô."
+      },
+      {
+        id: 15,
+        question: "Một trong những lí do Liên bang cộng hòa xã hội chủ nghĩa Xô Viết (Liên Xô) thành lập là",
+        options: {
+          A: "cuộc tấn công của liên quân 14 nước đế quốc.",
+          B: "mâu thuẫn gay gắt giữa nhân dân với Nga hoàng.",
+          C: "sự phát triển không đồng đều giữa các dân tộc Nga.",
+          D: "sự tồn tại song song 2 chính quyền sau cách mạng."
+        },
+        correct: "B",
+        explain: "Mâu thuẫn sâu sắc này là động lực khởi phát các cuộc cách mạng dẫn tới thành lập chính quyền Xô viết."
+      },
+      {
+        id: 16,
+        question: "Sự ra đời của Liên bang cộng hòa xã hội chủ nghĩa Xô viết đã",
+        options: {
+          A: "giải phóng các dân tộc trên toàn thế giới khỏi ách thống trị của thực dân.",
+          B: "lãnh đạo phong trào công nhân ở các nước tư bản.",
+          C: "tạo nên sức mạnh tổng hợp để xây dựng chủ nghĩa xã hội và bảo vệ đất nước.",
+          D: "đập tan âm mưu xâm lược và nô dịch của các nước đế quốc."
+        },
+        correct: "C",
+        explain: "Tập hợp được sức mạnh toàn diện về kinh tế, quân sự và chính trị của các nước cộng hòa anh em."
+      },
+      {
+        id: 17,
+        question: "Việc thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô viết có ý nghĩa như thế nào đối với nhân dân Nga?",
+        options: {
+          A: "Thúc đẩy phong trào cách mạng tại châu Âu.",
+          B: "Kiềm chế sự phát triển của chủ nghĩa tư bản.",
+          C: "Xây dựng được liên minh quân sự chống Đức Quốc xã.",
+          D: "Xác lập chế độ xã hội chủ nghĩa trên toàn lãnh thổ Liên Xô."
+        },
+        correct: "D",
+        explain: "Giúp củng cố và xác lập vững chắc chế độ xã hội chủ nghĩa trên phạm vi toàn thể liên bang."
+      },
+      {
+        id: 18,
+        question: "Đối với Liên Xô, việc thành lập Liên bang Cộng hoà xã hội chủ nghĩa Xô viết năm 1922 có ý nghĩa nào sau đây?",
+        options: {
+          A: "Tạo sức mạnh để nhân dân Liên Xô bảo vệ tổ quốc.",
+          B: "Đánh dấu chủ nghĩa xã hội trở thành hệ thống thế giới.",
+          C: "Cổ vũ các dân tộc bị áp bức đứng lên đấu tranh tự giải phóng.",
+          D: "Giúp cho các dân tộc thuộc địa tìm ra con đường cứu nước."
+        },
+        correct: "A",
+        explain: "Giúp bảo vệ thành quả của Cách mạng tháng Mười trước các nguy cơ tấn công từ bên ngoài."
+      },
+      {
+        id: 19,
+        question: "Việc thành lập Liên bang Cộng hoà xã hội chủ nghĩa Xô viết năm 1922 có ý nghĩa quốc tế nào sau đây?",
+        options: {
+          A: "Tạo tiền đề cho sự ra đời của hệ thống xã hội chủ nghĩa.",
+          B: "Đánh dấu chủ nghĩa xã hội trở thành hệ thống thế giới.",
+          C: "Đánh dấu sự sụp đổ hoàn toàn của chính phủ tư sản lâm thời.",
+          D: "Tạo nên sức mạnh tổng hợp để Liên Xô xây dựng chủ nghĩa xã hội."
+        },
+        correct: "A",
+        explain: "Là tấm gương và tạo tiền đề để hệ thống xã hội chủ nghĩa hình thành vững mạnh sau Thế chiến II."
+      },
+      {
+        id: 20,
+        question: "Nội dung nào sau đây không phản ánh đúng ý nghĩa sự ra đời của Liên bang cộng hòa xã hội chủ nghĩa Xô viết (1922)?",
+        options: {
+          A: "Chứng minh cho học thuyết Mác - Lênin là đúng đắn, khoa học.",
+          B: "Thành lập nhà nước chuyên chính vô sản đầu tiên trên thế giới.",
+          C: "Cổ vũ các dân tộc bị áp bức đứng lên đấu tranh.",
+          D: "Tăng cường sức mạnh cho hệ thống tư bản chủ nghĩa."
+        },
+        correct: "D",
+        explain: "Sự ra đời của Liên Xô đối lập và làm thu hẹp phạm vi ảnh hưởng của hệ thống tư bản chủ nghĩa."
+      },
+      {
+        id: 21,
+        question: "Nội dung nào dưới đây là thách thức đối với chủ nghĩa tư bản hiện đại?",
+        options: {
+          A: "Mức chênh lệch giàu nghèo ngày càng lớn trong các nước tư bản.",
+          B: "Những Mâu thuẫn giữa giai cấp tư sản và vô sản ngày càng cao.",
+          C: "Xuất hiện Những vấn đề về kinh tế và xã hội ngày càng nan giải.",
+          D: "Cuộc khủng hoảng kinh tế thường xuyên xảy ra trong xã hội."
+        },
+        correct: "C",
+        explain: "Các vấn đề khủng hoảng môi trường, chênh lệch xã hội, suy thoái và già hóa dân số đang là thách thức nan giải."
+      },
+      {
+        id: 22,
+        question: "Trước khi thành lập Liên Xô năm 1922, nền kinh tế của nước Nga so với các nước cộng hòa Xô viết đồng minh có đặc điểm gì?",
+        options: {
+          A: "Nga có nền kinh tế công nghiệp tương đối phát triển, các nước khác còn nông nghiệp lạc hậu.",
+          B: "Các nước đồng minh đều có nền công nghiệp phát triển vượt trội so với nước Nga.",
+          C: "Kinh tế của tất cả các nước cộng hòa đều phát triển đồng đều và toàn diện.",
+          D: "Các nước cộng hòa đều đã hoàn thành xuất sắc công nghiệp hóa hiện đại hóa."
+        },
+        correct: "A",
+        explain: "Được nêu rõ trong tư liệu phần đọc hiểu: Nga phát triển công nghiệp tương đối nhờ NEP, các nước khác vẫn nông nghiệp lạc hậu."
+      },
+      {
+        id: 23,
+        question: "Sự kiện lịch sử nào vào tháng 3/1921 là cơ sở kinh tế quan trọng để nước Nga phục hồi sản xuất trước khi lập Liên Xô?",
+        options: {
+          A: "Chính sách Cộng sản thời chiến.",
+          B: "Chính sách Kinh tế mới (NEP).",
+          C: "Kế hoạch 5 năm lần thứ nhất.",
+          D: "Kế hoạch điện khí hóa toàn Nga (GOELRO)."
+        },
+        correct: "B",
+        explain: "Chính sách NEP do V.I. Lênin đề xướng đã giúp kinh tế nước Nga nhanh chóng hồi sinh."
+      },
+      {
+        id: 24,
+        question: "Sự thành lập Liên Xô đã chứng minh tính đúng đắn của học thuyết nào sau đây?",
+        options: {
+          A: "Học thuyết Mác – Lênin về vấn đề dân tộc và cách mạng vô sản.",
+          B: "Học thuyết kinh tế cổ điển của Adam Smith.",
+          C: "Thuyết quân chủ chuyên chế thời kỳ cận đại.",
+          D: "Chủ nghĩa xã hội không tưởng của Pháp."
+        },
+        correct: "A",
+        explain: "Hiện thực hóa sinh động lý luận của chủ nghĩa Mác – Lênin về đoàn kết giai cấp và các dân tộc."
+      },
+      {
+        id: 25,
+        question: "Nguyên tắc cơ bản nhất trong việc thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết năm 1922 là gì?",
+        options: {
+          A: "Bắt buộc và tập trung cao độ quyền lực.",
+          B: "Tự nguyện và bình đẳng giữa các dân tộc.",
+          C: "Dựa trên ưu tiên đặc quyền tối cao của nước Nga.",
+          D: "Do các cường quốc thắng trận sắp đặt."
+        },
+        correct: "B",
+        explain: "Liên Xô được xây dựng trên nguyên tắc bình đẳng và sự tự nguyện gia nhập của các quốc gia cộng hòa."
+      },
+      {
+        id: 26,
+        question: "Một trong những quốc gia nào sau đây KHÔNG thuộc 4 nước sáng lập Liên bang Xô viết năm 1922?",
+        options: {
+          A: "Cộng hòa Xô viết Ngoại Cáp-ca-dơ.",
+          B: "Cộng hòa Xô viết Bê-lô-rút-xi-a.",
+          C: "Cộng hòa Xô viết Ba Lan.",
+          D: "Cộng hòa Xô viết Nga."
+        },
+        correct: "C",
+        explain: "Ba Lan là một quốc gia độc lập theo chế độ tư sản lúc bấy giờ, không thuộc Liên Xô."
+      },
+      {
+        id: 27,
+        question: "Đại hội lần thứ nhất các Xô viết toàn Liên bang (12/1922) được tổ chức tại thành phố nào?",
+        options: {
+          A: "Mátxcơva.",
+          B: "Pê-tơ-rô-grát.",
+          C: "Ki-ép.",
+          D: "Min-xcơ."
+        },
+        correct: "A",
+        explain: "Đại hội lịch sử họp tại thủ đô Mátxcơva vào cuối tháng 12 năm 1922."
+      },
+      {
+        id: 28,
+        question: "Nước cộng hòa Ngoại Cáp-ca-dơ gia nhập Liên Xô năm 1922 bao gồm những khu vực nào ngày nay?",
+        options: {
+          A: "Latvia, Litva và Estonia.",
+          B: "Gruzia (Gru-zi-a), Armenia (Ác-mê-ni-a) và Azerbaijan (A-déc-bai-gian).",
+          C: "Kazakhstan, Uzbekistan và Tajikistan.",
+          D: "Phần Lan, Ba Lan và Moldova."
+        },
+        correct: "B",
+        explain: "Liên bang Ngoại Cáp-ca-dơ lúc đó bao gồm 3 vùng lãnh thổ Gruzia, Armenia và Azerbaijan."
+      },
+      {
+        id: 29,
+        question: "Sự ra đời của Liên Xô năm 1922 đã để lại bài học kinh nghiệm quý báu nào cho phong trào giải phóng dân tộc ở Việt Nam?",
+        options: {
+          A: "Phải tranh thủ vốn đầu tư nước ngoài bằng mọi giá.",
+          B: "Đoàn kết các dân tộc trên cơ sở bình đẳng và tôn trọng lẫn nhau.",
+          C: "Tập trung phát triển công nghiệp nặng trước tiên.",
+          D: "Thực hiện liên minh quân sự với tất cả các nước tư bản."
+        },
+        correct: "B",
+        explain: "Khối đại đoàn kết toàn dân tộc và quyền tự quyết, bình đẳng giữa các dân tộc anh em."
+      },
+      {
+        id: 30,
+        question: "Vị lãnh tụ vĩ đại có vai trò to lớn trong việc sáng lập Nhà nước Liên bang Cộng hòa xã hội chủ nghĩa Xô viết là",
+        options: {
+          A: "I. V. Xta-lin.",
+          B: "V. I. Lê-nin.",
+          C: "C. Mác.",
+          D: "Ph. Ăng-ghen."
+        },
+        correct: "B",
+        explain: "V.I. Lênin là người trực tiếp chỉ đạo, hoạch định đường lối và thành lập Nhà nước Liên Xô."
+      }
     ];
 
     const container = document.getElementById("questions-list");
     const countDisplay = document.getElementById("answered-count");
 
-    // Render danh sách câu hỏi
-    questions.forEach((q, idx) => {
+    // Render 30 câu hỏi
+    quizData.forEach((item, index) => {
       const card = document.createElement("div");
       card.className = "question-card";
-      card.id = `card-${q.id}`;
+      card.id = `card-${item.id}`;
+
+      let optionsHtml = "";
+      for (const [key, value] of Object.entries(item.options)) {
+        optionsHtml += `
+          <input type="radio" id="q${item.id}_${key}" name="question_${item.id}" value="${key}" onchange="updateProgress()">
+          <label class="option-label" for="q${item.id}_${key}">
+            <span class="option-key">${key}.</span>
+            <span>${value}</span>
+          </label>
+        `;
+      }
+
       card.innerHTML = `
         <div class="question-title">
-          <span class="question-index">Câu ${idx + 1}:</span> ${q.text}
+          <span class="question-index">Câu ${index + 1}:</span> ${item.question}
         </div>
-        <div class="options">
-          <input type="radio" id="q${q.id}_true" name="question_${q.id}" value="true" onchange="updateCount()">
-          <label class="option-label" for="q${q.id}_true">ĐÚNG</label>
-
-          <input type="radio" id="q${q.id}_false" name="question_${q.id}" value="false" onchange="updateCount()">
-          <label class="option-label" for="q${q.id}_false">SAI</label>
+        <div class="options-grid">
+          ${optionsHtml}
         </div>
-        <div class="explanation" id="explain-${q.id}"></div>
+        <div class="explanation" id="explain-${item.id}"></div>
       `;
       container.appendChild(card);
     });
 
-    function updateCount() {
-      const answered = document.querySelectorAll('input[type="radio"]:checked').length;
-      countDisplay.textContent = answered;
+    function updateProgress() {
+      const checkedAnswers = document.querySelectorAll('input[type="radio"]:checked').length;
+      countDisplay.textContent = checkedAnswers;
     }
 
     function submitQuiz() {
       let score = 0;
       let unanswered = 0;
 
-      questions.forEach((q) => {
+      quizData.forEach((q) => {
         const selected = document.querySelector(`input[name="question_${q.id}"]:checked`);
         const card = document.getElementById(`card-${q.id}`);
         const explainBox = document.getElementById(`explain-${q.id}`);
@@ -268,8 +618,8 @@
           card.classList.add("is-wrong");
           explainBox.style.background = "#fff1f2";
           explainBox.style.color = "#991b1b";
-          explainBox.innerHTML = `<strong>Chưa trả lời!</strong> Đáp án đúng là: <strong>${q.answer === "true" ? "ĐÚNG" : "SAI"}</strong>. (${q.explain})`;
-        } else if (selected.value === q.answer) {
+          explainBox.innerHTML = `<strong>Chưa chọn đáp án!</strong> Đáp án đúng là: <strong>${q.correct}</strong>. <em>(${q.explain})</em>`;
+        } else if (selected.value === q.correct) {
           score++;
           card.classList.add("is-correct");
           explainBox.style.background = "#ecfdf5";
@@ -279,17 +629,17 @@
           card.classList.add("is-wrong");
           explainBox.style.background = "#fff1f2";
           explainBox.style.color = "#991b1b";
-          explainBox.innerHTML = `<strong>Sai rồi!</strong> Đáp án đúng là: <strong>${q.answer === "true" ? "ĐÚNG" : "SAI"}</strong>. (${q.explain})`;
+          explainBox.innerHTML = `<strong>Sai rồi!</strong> Bạn chọn <strong>${selected.value}</strong>. Đáp án đúng là: <strong>${q.correct}</strong>. <em>(${q.explain})</em>`;
         }
       });
 
-      // Hiển thị điểm số
-      const resultBox = document.getElementById("score-display");
-      resultBox.innerHTML = `Điểm số: ${score}/${questions.length} (${((score / questions.length) * 10).toFixed(1)} điểm)`;
-      
+      const finalMark = ((score / quizData.length) * 10).toFixed(1);
+      const scoreDisplay = document.getElementById("score-display");
+      scoreDisplay.innerHTML = `Kết quả: <strong>${score}/${quizData.length}</strong> (${finalMark} điểm)`;
+
       const submitBtn = document.getElementById("submit-btn");
       submitBtn.textContent = "Làm lại";
-      submitBtn.setAttribute("onclick", "location.reload()");
+      submitBtn.setAttribute("onclick", "window.location.reload()");
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
