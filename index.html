@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ôn Tập Trắc Nghiệm Lịch Sử 10</title>
+  <title>Ôn Tập Trắc Nghiệm Lịch Sử 10 (Tự Động Báo Đúng / Sai)</title>
   <style>
     :root {
       --primary: #2563eb;
@@ -14,9 +14,11 @@
       --text-muted: #64748b;
       --border: #e2e8f0;
       --correct: #10b981;
-      --wrong: #ef4444;
       --correct-bg: #ecfdf5;
+      --correct-border: #059669;
+      --wrong: #ef4444;
       --wrong-bg: #fef2f2;
+      --wrong-border: #dc2626;
     }
 
     * {
@@ -49,7 +51,7 @@
     }
 
     header h1 {
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       color: var(--primary);
       margin-bottom: 6px;
       text-transform: uppercase;
@@ -108,7 +110,7 @@
       padding: 22px;
       border-radius: 12px;
       margin-bottom: 18px;
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       transition: all 0.2s ease;
     }
 
@@ -130,21 +132,23 @@
       gap: 10px;
     }
 
-    .option-label {
+    .option-btn {
+      width: 100%;
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      padding: 12px 14px;
+      gap: 12px;
+      padding: 12px 16px;
       border: 1.5px solid var(--border);
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.95rem;
-      transition: all 0.2s ease;
-      user-select: none;
+      transition: all 0.15s ease;
       background: #fff;
+      text-align: left;
+      color: var(--text);
     }
 
-    .option-label:hover {
+    .option-btn:hover:not(:disabled) {
       border-color: var(--primary);
       background: #eff6ff;
     }
@@ -155,15 +159,31 @@
       min-width: 24px;
     }
 
-    input[type="radio"] {
-      display: none;
+    /* Styles khi đã chọn */
+    .option-btn.selected-correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: #065f46 !important;
+      font-weight: 600;
     }
 
-    input[type="radio"]:checked + .option-label {
-      border-color: var(--primary);
-      background-color: #dbeafe;
+    .option-btn.selected-wrong {
+      background-color: var(--wrong-bg) !important;
+      border-color: var(--wrong-border) !important;
+      color: #991b1b !important;
       font-weight: 600;
-      color: #1e40af;
+    }
+
+    .option-btn.reveal-correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-border) !important;
+      color: #065f46 !important;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
     }
 
     .explanation {
@@ -172,16 +192,6 @@
       padding: 12px 16px;
       border-radius: 8px;
       font-size: 0.92rem;
-    }
-
-    .is-correct {
-      border-color: var(--correct) !important;
-      background-color: var(--correct-bg);
-    }
-
-    .is-wrong {
-      border-color: var(--wrong) !important;
-      background-color: var(--wrong-bg);
     }
 
     /* Sticky Footer */
@@ -204,26 +214,37 @@
       z-index: 100;
     }
 
-    .submit-btn {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 12px 28px;
+    .score-stats {
       font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .badge-correct {
+      color: #059669;
+    }
+
+    .badge-wrong {
+      color: #dc2626;
+    }
+
+    .reset-btn {
+      background: #f1f5f9;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 9px 18px;
+      font-size: 0.9rem;
       font-weight: 600;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s ease;
+      transition: all 0.2s ease;
     }
 
-    .submit-btn:hover {
-      background: var(--primary-hover);
-    }
-
-    .score-box {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary);
+    .reset-btn:hover {
+      background: #e2e8f0;
+      border-color: #cbd5e1;
     }
   </style>
 </head>
@@ -231,16 +252,16 @@
 
   <div class="container">
     <header>
-      <h1>HỆ THỐNG ÔN TẬP TRẮC NGHIỆM LỊCH SỬ 10</h1>
-      <p>Chọn bài học tương ứng bên dưới để bắt đầu làm bài và chấm điểm trực tiếp</p>
+      <h1>HỆ THỐNG ÔN TẬP LỊCH SỬ 10 (PHẢN HỒI TỨC THÌ)</h1>
+      <p>Bấm vào phương án bất kỳ để kiểm tra đúng/sai ngay lập tức mà không cần nộp bài</p>
     </header>
 
     <!-- Navigation Tabs -->
     <div class="tabs-container">
-      <button class="tab-btn active" onclick="switchLesson(1)">
+      <button class="tab-btn active" id="tab-btn-1" onclick="switchLesson(1)">
         BÀI 1: Sự thành lập Liên Xô (30 câu)
       </button>
-      <button class="tab-btn" onclick="switchLesson(2)">
+      <button class="tab-btn" id="tab-btn-2" onclick="switchLesson(2)">
         BÀI 2: CNXH từ sau CTTG II đến nay (30 câu)
       </button>
     </div>
@@ -255,10 +276,14 @@
       <div id="list-lesson-2"></div>
     </div>
 
-    <!-- Footer Action -->
+    <!-- Sticky Footer Stats -->
     <div class="footer-actions">
-      <div id="score-display" class="score-box">Đã làm: <span id="answered-count">0</span>/30</div>
-      <button type="button" class="submit-btn" id="submit-btn" onclick="submitCurrentQuiz()">Nộp Bài</button>
+      <div class="score-stats" id="stats-display">
+        <span>Tiến độ: <strong id="stat-done">0</strong>/30</span>
+        <span class="badge-correct">Đúng: <strong id="stat-correct">0</strong></span>
+        <span class="badge-wrong">Sai: <strong id="stat-wrong">0</strong></span>
+      </div>
+      <button type="button" class="reset-btn" onclick="resetCurrentLesson()">Làm lại bài này</button>
     </div>
   </div>
 
@@ -443,7 +468,7 @@
           D: "sự tồn tại song song 2 chính quyền sau cách mạng."
         },
         correct: "B",
-        explain: "Mâu thuẫn sâu sắc này là nguồn cơn dẫn tới các cuộc cách mạng thành lập chính quyền vô sản."
+        explain: "Mâu thuẫn sâu sắc này là nguồn cơ dẫn tới các cuộc cách mạng thành lập chính quyền vô sản."
       },
       {
         id: 16,
@@ -992,12 +1017,16 @@
     ];
 
     let currentLesson = 1;
-    const answeredMap = { 1: 0, 2: 0 };
+    const stats = {
+      1: { done: 0, correct: 0, wrong: 0, answeredItems: {} },
+      2: { done: 0, correct: 0, wrong: 0, answeredItems: {} }
+    };
 
-    // Khởi tạo Render câu hỏi cho cả 2 bài
-    function renderQuestions(list, containerId, lessonNum) {
+    // Render danh sách câu hỏi
+    function renderQuiz(list, containerId, lessonNum) {
       const container = document.getElementById(containerId);
       container.innerHTML = "";
+
       list.forEach((item, index) => {
         const card = document.createElement("div");
         card.className = "question-card";
@@ -1006,11 +1035,13 @@
         let optionsHtml = "";
         for (const [key, value] of Object.entries(item.options)) {
           optionsHtml += `
-            <input type="radio" id="l${lessonNum}_q${item.id}_${key}" name="l${lessonNum}_q_${item.id}" value="${key}" onchange="updateProgress(${lessonNum})">
-            <label class="option-label" for="l${lessonNum}_q${item.id}_${key}">
+            <button type="button" 
+                    class="option-btn" 
+                    id="btn-l${lessonNum}-${item.id}-${key}"
+                    onclick="handleAnswer(${lessonNum}, ${item.id}, '${key}')">
               <span class="option-key">${key}.</span>
               <span>${value}</span>
-            </label>
+            </button>
           `;
         }
 
@@ -1027,108 +1058,86 @@
       });
     }
 
-    renderQuestions(dataLesson1, "list-lesson-1", 1);
-    renderQuestions(dataLesson2, "list-lesson-2", 2);
+    renderQuiz(dataLesson1, "list-lesson-1", 1);
+    renderQuiz(dataLesson2, "list-lesson-2", 2);
 
-    // Chuyển đổi tab giữa Bài 1 và Bài 2
+    // Xử lý khi người dùng ấn vào 1 đáp án
+    function handleAnswer(lessonNum, qId, selectedKey) {
+      const currentStats = stats[lessonNum];
+      if (currentStats.answeredItems[qId]) return; // Đã trả lời rồi thì không cho bấm lại
+
+      const lessonData = lessonNum === 1 ? dataLesson1 : dataLesson2;
+      const question = lessonData.find(q => q.id === qId);
+      if (!question) return;
+
+      currentStats.answeredItems[qId] = selectedKey;
+      currentStats.done++;
+
+      const selectedBtn = document.getElementById(`btn-l${lessonNum}-${qId}-${selectedKey}`);
+      const correctBtn = document.getElementById(`btn-l${lessonNum}-${qId}-${question.correct}`);
+      const card = document.getElementById(`card-l${lessonNum}-${qId}`);
+      const explainBox = document.getElementById(`explain-l${lessonNum}-${qId}`);
+
+      // Vô hiệu hóa tất cả các nút của câu này
+      for (const key of ['A', 'B', 'C', 'D']) {
+        const btn = document.getElementById(`btn-l${lessonNum}-${qId}-${key}`);
+        if (btn) btn.disabled = true;
+      }
+
+      explainBox.style.display = "block";
+
+      if (selectedKey === question.correct) {
+        // ĐÚNG
+        currentStats.correct++;
+        selectedBtn.classList.add("selected-correct");
+        card.style.borderColor = "var(--correct)";
+        explainBox.style.background = "var(--correct-bg)";
+        explainBox.style.color = "#065f46";
+        explainBox.innerHTML = `<strong>CHÍNH XÁC!</strong> ${question.explain}`;
+      } else {
+        // SAI
+        currentStats.wrong++;
+        selectedBtn.classList.add("selected-wrong");
+        correctBtn.classList.add("reveal-correct"); // Tô xanh đáp án đúng ra cho thấy
+        card.style.borderColor = "var(--wrong)";
+        explainBox.style.background = "var(--wrong-bg)";
+        explainBox.style.color = "#991b1b";
+        explainBox.innerHTML = `<strong>SAI RỒI!</strong> Đáp án đúng là: <strong>${question.correct}</strong>. <em>(${question.explain})</em>`;
+      }
+
+      updateStatsUI();
+    }
+
+    function updateStatsUI() {
+      const current = stats[currentLesson];
+      document.getElementById("stat-done").textContent = current.done;
+      document.getElementById("stat-correct").textContent = current.correct;
+      document.getElementById("stat-wrong").textContent = current.wrong;
+    }
+
+    // Chuyển bài
     function switchLesson(lessonNum) {
       currentLesson = lessonNum;
-      
-      document.querySelectorAll(".tab-btn").forEach((btn, idx) => {
-        btn.classList.toggle("active", idx + 1 === lessonNum);
-      });
+
+      document.getElementById("tab-btn-1").classList.toggle("active", lessonNum === 1);
+      document.getElementById("tab-btn-2").classList.toggle("active", lessonNum === 2);
 
       document.getElementById("lesson-1").classList.toggle("active", lessonNum === 1);
       document.getElementById("lesson-2").classList.toggle("active", lessonNum === 2);
 
-      updateProgress(lessonNum);
-
-      // Reset text nút nộp nếu bài đó chưa submit
-      const submitBtn = document.getElementById("submit-btn");
-      submitBtn.textContent = "Nộp Bài";
-      submitBtn.setAttribute("onclick", "submitCurrentQuiz()");
-
+      updateStatsUI();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Cập nhật số câu đã làm
-    function updateProgress(lessonNum) {
-      const checkedAnswers = document.querySelectorAll(`input[name^="l${lessonNum}_q_"]:checked`).length;
-      answeredMap[lessonNum] = checkedAnswers;
-      if (currentLesson === lessonNum) {
-        document.getElementById("score-display").innerHTML = `Đã làm: <span id="answered-count">${checkedAnswers}</span>/30`;
-      }
-    }
+    // Làm lại bài hiện tại
+    function resetCurrentLesson() {
+      if (!confirm(`Bạn có chắc muốn làm lại Bài ${currentLesson} từ đầu không?`)) return;
 
-    // Chấm điểm bài kiểm tra hiện tại
-    function submitCurrentQuiz() {
+      stats[currentLesson] = { done: 0, correct: 0, wrong: 0, answeredItems: {} };
       const lessonData = currentLesson === 1 ? dataLesson1 : dataLesson2;
-      let score = 0;
-      let unanswered = 0;
 
-      lessonData.forEach((q) => {
-        const selected = document.querySelector(`input[name="l${currentLesson}_q_${q.id}"]:checked`);
-        const card = document.getElementById(`card-l${currentLesson}-${q.id}`);
-        const explainBox = document.getElementById(`explain-l${currentLesson}-${q.id}`);
-
-        explainBox.style.display = "block";
-
-        if (!selected) {
-          unanswered++;
-          card.classList.add("is-wrong");
-          card.classList.remove("is-correct");
-          explainBox.style.background = "#fff1f2";
-          explainBox.style.color = "#991b1b";
-          explainBox.innerHTML = `<strong>Chưa chọn đáp án!</strong> Đáp án đúng là: <strong>${q.correct}</strong>. <em>(${q.explain})</em>`;
-        } else if (selected.value === q.correct) {
-          score++;
-          card.classList.add("is-correct");
-          card.classList.remove("is-wrong");
-          explainBox.style.background = "#ecfdf5";
-          explainBox.style.color = "#065f46";
-          explainBox.innerHTML = `<strong>Chính xác!</strong> ${q.explain}`;
-        } else {
-          card.classList.add("is-wrong");
-          card.classList.remove("is-correct");
-          explainBox.style.background = "#fff1f2";
-          explainBox.style.color = "#991b1b";
-          explainBox.innerHTML = `<strong>Sai rồi!</strong> Bạn chọn <strong>${selected.value}</strong>. Đáp án đúng là: <strong>${q.correct}</strong>. <em>(${q.explain})</em>`;
-        }
-      });
-
-      const finalMark = ((score / lessonData.length) * 10).toFixed(1);
-      const scoreDisplay = document.getElementById("score-display");
-      scoreDisplay.innerHTML = `Bài ${currentLesson}: <strong>${score}/${lessonData.length}</strong> (${finalMark} điểm)`;
-
-      const submitBtn = document.getElementById("submit-btn");
-      submitBtn.textContent = `Làm lại Bài ${currentLesson}`;
-      submitBtn.setAttribute("onclick", `resetLesson(${currentLesson})`);
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Làm lại bài
-    function resetLesson(lessonNum) {
-      const inputs = document.querySelectorAll(`input[name^="l${lessonNum}_q_"]`);
-      inputs.forEach(input => input.checked = false);
-
-      const cards = document.querySelectorAll(`[id^="card-l${lessonNum}-"]`);
-      cards.forEach(card => {
-        card.classList.remove("is-correct", "is-wrong");
-      });
-
-      const explains = document.querySelectorAll(`[id^="explain-l${lessonNum}-"]`);
-      explains.forEach(exp => {
-        exp.style.display = "none";
-        exp.innerHTML = "";
-      });
-
-      updateProgress(lessonNum);
-
-      const submitBtn = document.getElementById("submit-btn");
-      submitBtn.textContent = "Nộp Bài";
-      submitBtn.setAttribute("onclick", "submitCurrentQuiz()");
-
+      renderQuiz(lessonData, `list-lesson-${currentLesson}`, currentLesson);
+      updateStatsUI();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
