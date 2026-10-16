@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ôn Tập Trắc Nghiệm Lịch Sử 10 (Tự Động Báo Đúng / Sai)</title>
+  <title>Ôn Tập Trắc Nghiệm Lịch Sử 11</title>
   <style>
     :root {
       --primary: #2563eb;
@@ -63,7 +63,7 @@
       font-size: 0.95rem;
     }
 
-    /* Tab navigation */
+    /* Tabs */
     .tabs-container {
       display: flex;
       gap: 12px;
@@ -104,7 +104,7 @@
       display: block;
     }
 
-    /* Question cards */
+    /* Cards */
     .question-card {
       background: var(--card-bg);
       padding: 22px;
@@ -159,7 +159,6 @@
       min-width: 24px;
     }
 
-    /* Styles khi đã chọn */
     .option-btn.selected-correct {
       background-color: var(--correct-bg) !important;
       border-color: var(--correct-border) !important;
@@ -179,7 +178,6 @@
       border-color: var(--correct-border) !important;
       color: #065f46 !important;
       font-weight: 700;
-      position: relative;
     }
 
     .option-btn:disabled {
@@ -194,7 +192,7 @@
       font-size: 0.92rem;
     }
 
-    /* Sticky Footer */
+    /* Footer Stats */
     .footer-actions {
       position: fixed;
       bottom: 16px;
@@ -252,17 +250,17 @@
 
   <div class="container">
     <header>
-      <h1>HỆ THỐNG ÔN TẬP LỊCH SỬ 10 (PHẢN HỒI TỨC THÌ)</h1>
-      <p>Bấm vào phương án bất kỳ để kiểm tra đúng/sai ngay lập tức mà không cần nộp bài</p>
+      <h1>HỆ THỐNG ÔN TẬP LỊCH SỬ 11</h1>
+      <p>Bấm chọn phương án để nhận kết quả đúng / sai trực tiếp</p>
     </header>
 
     <!-- Navigation Tabs -->
     <div class="tabs-container">
       <button class="tab-btn active" id="tab-btn-1" onclick="switchLesson(1)">
-        BÀI 1: Sự thành lập Liên Xô (30 câu)
+        BÀI TẬP VỀ NHÀ - BÀI 3 (20 câu)
       </button>
       <button class="tab-btn" id="tab-btn-2" onclick="switchLesson(2)">
-        BÀI 2: CNXH từ sau CTTG II đến nay (30 câu)
+        TRẮC NGHIỆM BÀI 4 (33 câu)
       </button>
     </div>
 
@@ -279,7 +277,7 @@
     <!-- Sticky Footer Stats -->
     <div class="footer-actions">
       <div class="score-stats" id="stats-display">
-        <span>Tiến độ: <strong id="stat-done">0</strong>/30</span>
+        <span>Tiến độ: <strong id="stat-done">0</strong>/<span id="stat-total">20</span></span>
         <span class="badge-correct">Đúng: <strong id="stat-correct">0</strong></span>
         <span class="badge-wrong">Sai: <strong id="stat-wrong">0</strong></span>
       </div>
@@ -288,7 +286,7 @@
   </div>
 
   <script>
-    // Dữ liệu BÀI 1 (Bài 3 SGK - Sự thành lập Liên Xô)
+    // BÀI 1: ĐÚNG 20 CÂU BÀI 3 TỪ ẢNH 1, 2, 3
     const dataLesson1 = [
       {
         id: 1,
@@ -312,7 +310,7 @@
           D: "Lào."
         },
         correct: "A",
-        explain: "Nga là một trong bốn nước cộng hòa đầu tiên tham gia ký kết hiệp ước thành lập Liên Xô."
+        explain: "4 nước cộng hòa đầu tiên gia nhập gồm Nga, U-crai-na, Bê-lô-rút-xi-a và Ngoại Cáp-ca-dơ."
       },
       {
         id: 3,
@@ -324,7 +322,7 @@
           D: "Ấn Độ."
         },
         correct: "A",
-        explain: "4 nước cộng hòa đầu tiên gồm: Nga, U-crai-na, Bê-lô-rút-xi-a và Ngoại Cáp-ca-dơ."
+        explain: "U-crai-na là 1 trong 4 nước cộng hòa đầu tiên gia nhập Liên bang Xô viết năm 1922."
       },
       {
         id: 4,
@@ -336,7 +334,7 @@
           D: "Hiệp ước Xô – Đức không xâm lược nhau."
         },
         correct: "B",
-        explain: "Đại hội đã thông qua bản Tuyên ngôn thành lập Liên Xô và Hiệp ước Liên bang."
+        explain: "Đại hội đã thông qua bản Tuyên ngôn thành lập Liên Xô và bản Hiệp ước Liên bang."
       },
       {
         id: 5,
@@ -348,7 +346,7 @@
           D: "Tuyên ngôn thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô viết."
         },
         correct: "D",
-        explain: "Văn kiện lịch sử chính thức được thông qua tại Đại hội lần thứ nhất."
+        explain: "Đại hội đã thông qua Tuyên ngôn thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô viết."
       },
       {
         id: 6,
@@ -360,7 +358,7 @@
           D: "nước Nga Xô viết Xã hội chủ nghĩa."
         },
         correct: "A",
-        explain: "Tuyên bố chính thức thành lập nhà nước Liên bang Xô viết (gọi tắt là Liên Xô)."
+        explain: "Tuyên bố chính thức thành lập Liên bang cộng hòa xã hội chủ nghĩa Xô viết (Liên Xô)."
       },
       {
         id: 7,
@@ -372,7 +370,7 @@
           D: "Liên bang Cộng hòa xã hội chủ nghĩa Xô viết."
         },
         correct: "D",
-        explain: "Liên Xô là tên rút gọn chính thức của Liên bang Cộng hòa xã hội chủ nghĩa Xô viết."
+        explain: "Liên bang Cộng hòa xã hội chủ nghĩa Xô viết có tên gọi tắt là Liên Xô."
       },
       {
         id: 8,
@@ -384,7 +382,7 @@
           D: "giải quyết vấn đề hoà bình cho nhân dân ruộng đất cho nông dân."
         },
         correct: "A",
-        explain: "Bản Hiến pháp năm 1924 được thông qua đã hoàn thành quá trình thành lập Nhà nước Liên bang."
+        explain: "Hiến pháp năm 1924 được thông qua đánh dấu hoàn thành quá trình thành lập nhà nước."
       },
       {
         id: 9,
@@ -396,7 +394,7 @@
           D: "Mâu thuẫn giữa nước Nga với các nước cộng hòa Xô viết gay gắt."
         },
         correct: "C",
-        explain: "Sự tương đồng về thể chế và sự thống nhất về chính sách đối nội, đối ngoại đã thúc đẩy việc liên minh."
+        explain: "Các nước cộng hòa Xô Viết có sự thống nhất về các đường lối và chính sách phát triển."
       },
       {
         id: 10,
@@ -408,7 +406,7 @@
           D: "sự xác lập và xây dựng mô hình nhà nước mới trên cơ sở mô hình nhà nước phong kiến."
         },
         correct: "A",
-        explain: "Đánh dấu sự hoàn thiện về mặt pháp lý và thể chế của Liên bang Xô viết."
+        explain: "Đánh dấu sự hoàn thành về mặt pháp lý và thể chế của Liên bang Xô viết."
       },
       {
         id: 11,
@@ -420,7 +418,7 @@
           D: "Nga, Bê-lô-rút-xi-a, U-crai-na, Kazakhtan."
         },
         correct: "C",
-        explain: "Bốn nước thành viên sáng lập ban đầu là Nga, Bê-lô-rút-xi-a, U-crai-na và Ngoại Cáp-ca-dơ."
+        explain: "4 nước thành viên đầu tiên gồm Nga, Bê-lô-rút-xi-a, U-crai-na và Ngoại Cáp-ca-dơ."
       },
       {
         id: 12,
@@ -432,7 +430,7 @@
           D: "cuộc xung đột gay gắt về quyền lực giữa các nước phương Tây đang diễn ra ở Đức."
         },
         correct: "C",
-        explain: "Bối cảnh các nước tư bản phương Tây bao vây và thù địch với nhà nước Xô viết non trẻ."
+        explain: "Bối cảnh đối đầu và bao vây, thù địch của các nước đế quốc tư bản phương Tây."
       },
       {
         id: 13,
@@ -444,7 +442,7 @@
           D: "chống lại cuộc tấn công của phát xít Đức."
         },
         correct: "C",
-        explain: "Mục tiêu trọng tâm là liên kết, giúp đỡ lẫn nhau cùng phát triển về mọi mặt."
+        explain: "Mục tiêu cơ bản là hợp tác, hỗ trợ và giúp đỡ lẫn nhau cùng phát triển về mọi mặt."
       },
       {
         id: 14,
@@ -456,7 +454,7 @@
           D: "Tuyên ngôn thành lập Liên bang Xô viết được thông qua (12/1922)."
         },
         correct: "C",
-        explain: "Bản Hiến pháp đầu tiên năm 1924 đánh dấu hoàn thiện căn bản quá trình thành lập nhà nước Liên bang."
+        explain: "Bản Hiến pháp đầu tiên tháng 1/1924 đánh dấu sự hoàn thành của bộ máy nhà nước Liên Xô."
       },
       {
         id: 15,
@@ -468,7 +466,7 @@
           D: "sự tồn tại song song 2 chính quyền sau cách mạng."
         },
         correct: "B",
-        explain: "Mâu thuẫn sâu sắc này là nguồn cơ dẫn tới các cuộc cách mạng thành lập chính quyền vô sản."
+        explain: "Mâu thuẫn sâu sắc giữa quần chúng nhân dân với chế độ Nga hoàng dẫn tới cách mạng lập chính quyền Xô viết."
       },
       {
         id: 16,
@@ -480,7 +478,7 @@
           D: "đập tan âm mưu xâm lược và nô dịch của các nước đế quốc."
         },
         correct: "C",
-        explain: "Hợp nhất các nguồn lực để cùng bảo vệ đất nước và kiến thiết chế độ mới."
+        explain: "Tập hợp các nguồn lực sức mạnh tổng hợp để bảo vệ và xây dựng tổ quốc."
       },
       {
         id: 17,
@@ -492,7 +490,7 @@
           D: "Xác lập chế độ xã hội chủ nghĩa trên toàn lãnh thổ Liên Xô."
         },
         correct: "D",
-        explain: "Khẳng định và xác lập vững chắc vị thế của chế độ xã hội chủ nghĩa."
+        explain: "Xác lập vững chắc chế độ xã hội chủ nghĩa trên khắp lãnh thổ Liên Xô."
       },
       {
         id: 18,
@@ -504,7 +502,7 @@
           D: "Giúp cho các dân tộc thuộc địa tìm ra con đường cứu nước."
         },
         correct: "A",
-        explain: "Tạo nên sức mạnh tổng hợp để tự vệ và bảo toàn độc lập chủ quyền."
+        explain: "Tạo nên sức mạnh to lớn giúp nhân dân Liên Xô tự vệ và bảo vệ vững chắc tổ quốc."
       },
       {
         id: 19,
@@ -516,7 +514,7 @@
           D: "Tạo nên sức mạnh tổng hợp để Liên Xô xây dựng chủ nghĩa xã hội."
         },
         correct: "A",
-        explain: "Tạo chỗ dựa và tiền đề quan trọng cho sự ra đời của hệ thống XHCN sau này."
+        explain: "Tạo tiền đề cho sự xuất hiện và mở rộng của hệ thống xã hội chủ nghĩa sau Thế chiến II."
       },
       {
         id: 20,
@@ -528,131 +526,11 @@
           D: "Tăng cường sức mạnh cho hệ thống tư bản chủ nghĩa."
         },
         correct: "D",
-        explain: "Sự ra đời của Liên Xô làm suy giảm tầm ảnh hưởng của chủ nghĩa tư bản chứ không tăng cường cho nó."
-      },
-      {
-        id: 21,
-        question: "Nội dung nào dưới đây là thách thức đối với chủ nghĩa tư bản hiện đại?",
-        options: {
-          A: "Mức chênh lệch giàu nghèo ngày càng lớn trong các nước tư bản.",
-          B: "Những Mâu thuẫn giữa giai cấp tư sản và vô sản ngày càng cao.",
-          C: "Xuất hiện Những vấn đề về kinh tế và xã hội ngày càng nan giải.",
-          D: "Cuộc khủng hoảng kinh tế thường xuyên xảy ra trong xã hội."
-        },
-        correct: "C",
-        explain: "Các vấn đề khủng hoảng môi trường, chênh lệch xã hội, suy thoái và già hóa dân số đang là thách thức nan giải."
-      },
-      {
-        id: 22,
-        question: "Trước khi thành lập Liên Xô năm 1922, nền kinh tế của nước Nga so với các nước cộng hòa Xô viết đồng minh có đặc điểm gì?",
-        options: {
-          A: "Nga có nền kinh tế công nghiệp tương đối phát triển, các nước khác còn nông nghiệp lạc hậu.",
-          B: "Các nước đồng minh đều có nền công nghiệp phát triển vượt trội so với nước Nga.",
-          C: "Kinh tế của tất cả các nước cộng hòa đều phát triển đồng đều và toàn diện.",
-          D: "Các nước cộng hòa đều đã hoàn thành xuất sắc công nghiệp hóa hiện đại hóa."
-        },
-        correct: "A",
-        explain: "Nước Nga có công nghiệp tương đối nhờ thực hiện NEP, các nước khác vẫn nông nghiệp lạc hậu."
-      },
-      {
-        id: 23,
-        question: "Sự kiện lịch sử nào vào tháng 3/1921 là cơ sở kinh tế quan trọng để nước Nga phục hồi sản xuất trước khi lập Liên Xô?",
-        options: {
-          A: "Chính sách Cộng sản thời chiến.",
-          B: "Chính sách Kinh tế mới (NEP).",
-          C: "Kế hoạch 5 năm lần thứ nhất.",
-          D: "Kế hoạch điện khí hóa toàn Nga (GOELRO)."
-        },
-        correct: "B",
-        explain: "Chính sách NEP do V.I. Lênin khởi xướng giúp vực dậy nền sản xuất."
-      },
-      {
-        id: 24,
-        question: "Sự thành lập Liên Xô đã chứng minh tính đúng đắn của học thuyết nào sau đây?",
-        options: {
-          A: "Học thuyết Mác – Lênin về vấn đề dân tộc và cách mạng vô sản.",
-          B: "Học thuyết kinh tế cổ điển của Adam Smith.",
-          C: "Thuyết quân chủ chuyên chế thời kỳ cận đại.",
-          D: "Chủ nghĩa xã hội không tưởng của Pháp."
-        },
-        correct: "A",
-        explain: "Hiện thực hóa học thuyết Mác – Lênin vào đời sống nhà nước và quyền bình đẳng dân tộc."
-      },
-      {
-        id: 25,
-        question: "Nguyên tắc cơ bản nhất trong việc thành lập Liên bang Cộng hòa xã hội chủ nghĩa Xô viết năm 1922 là gì?",
-        options: {
-          A: "Bắt buộc và tập trung cao độ quyền lực.",
-          B: "Tự nguyện và bình đẳng giữa các dân tộc.",
-          C: "Dựa trên ưu tiên đặc quyền tối cao của nước Nga.",
-          D: "Do các cường quốc thắng trận sắp đặt."
-        },
-        correct: "B",
-        explain: "Nguyên tắc cơ bản là tự nguyện và hoàn toàn bình đẳng giữa các thành viên."
-      },
-      {
-        id: 26,
-        question: "Một trong những quốc gia nào sau đây KHÔNG thuộc 4 nước sáng lập Liên bang Xô viết năm 1922?",
-        options: {
-          A: "Cộng hòa Xô viết Ngoại Cáp-ca-dơ.",
-          B: "Cộng hòa Xô viết Bê-lô-rút-xi-a.",
-          C: "Cộng hòa Xô viết Ba Lan.",
-          D: "Cộng hòa Xô viết Nga."
-        },
-        correct: "C",
-        explain: "Ba Lan không tham gia sáng lập Liên bang Xô viết năm 1922."
-      },
-      {
-        id: 27,
-        question: "Đại hội lần thứ nhất các Xô viết toàn Liên bang (12/1922) được tổ chức tại thành phố nào?",
-        options: {
-          A: "Mátxcơva.",
-          B: "Pê-tơ-rô-grát.",
-          C: "Ki-ép.",
-          D: "Min-xcơ."
-        },
-        correct: "A",
-        explain: "Đại hội họp tại thủ đô Mátxcơva."
-      },
-      {
-        id: 28,
-        question: "Nước cộng hòa Ngoại Cáp-ca-dơ gia nhập Liên Xô năm 1922 bao gồm những khu vực nào ngày nay?",
-        options: {
-          A: "Latvia, Litva và Estonia.",
-          B: "Gruzia, Armenia và Azerbaijan.",
-          C: "Kazakhstan, Uzbekistan và Tajikistan.",
-          D: "Phần Lan, Ba Lan và Moldova."
-        },
-        correct: "B",
-        explain: "Gồm 3 vùng lãnh thổ Gruzia, Armenia và Azerbaijan hợp thành Liên bang Ngoại Cáp-ca-dơ."
-      },
-      {
-        id: 29,
-        question: "Sự ra đời của Liên Xô năm 1922 đã để lại bài học kinh nghiệm quý báu nào cho phong trào giải phóng dân tộc ở Việt Nam?",
-        options: {
-          A: "Phải tranh thủ vốn đầu tư nước ngoài bằng mọi giá.",
-          B: "Đoàn kết các dân tộc trên cơ sở bình đẳng và tôn trọng lẫn nhau.",
-          C: "Tập trung phát triển công nghiệp nặng trước tiên.",
-          D: "Thực hiện liên minh quân sự với tất cả các nước tư bản."
-        },
-        correct: "B",
-        explain: "Bài học về đại đoàn kết dân tộc và sự đồng lòng giải phóng đất nước."
-      },
-      {
-        id: 30,
-        question: "Vị lãnh tụ có vai trò to lớn trong việc sáng lập Nhà nước Liên bang Cộng hòa xã hội chủ nghĩa Xô viết là",
-        options: {
-          A: "I. V. Xta-lin.",
-          B: "V. I. Lê-nin.",
-          C: "C. Mác.",
-          D: "Ph. Ăng-ghen."
-        },
-        correct: "B",
-        explain: "V.I. Lênin là kiến trúc sư trưởng và lãnh tụ sáng lập Nhà nước Xô viết."
+        explain: "Sự ra đời của Liên Xô đối trọng và làm thu hẹp hệ thống tư bản chủ nghĩa chứ không tăng cường cho nó."
       }
     ];
 
-    // Dữ liệu BÀI 2 (Bài 4 SGK - CNXH từ sau CTTG II đến nay)
+    // BÀI 2: ĐÚNG 33 CÂU BÀI 4 TỪ ẢNH 4, 5, 6
     const dataLesson2 = [
       {
         id: 1,
@@ -664,7 +542,7 @@
           D: "thực hiện chính sách đóng cửa."
         },
         correct: "A",
-        explain: "Cả hai nước đều chủ trương đổi mới/cải cách xây dựng nền kinh tế thị trường định hướng XHCN."
+        explain: "Cả hai nước đều chủ trương cải cách, đổi mới xây dựng nền kinh tế thị trường XHCN."
       },
       {
         id: 2,
@@ -676,7 +554,7 @@
           D: "thực hiện nền kinh tế kế hoạch hóa tập trung."
         },
         correct: "A",
-        explain: "Kiên định con đường đi lên CNXH thông qua công cuộc cải cách, mở cửa và đổi mới đất nước."
+        explain: "Từng bước kiên định con đường đi lên CNXH thông qua cải cách, mở cửa, đổi mới."
       },
       {
         id: 3,
@@ -688,7 +566,7 @@
           D: "Trung Quốc, Cuba, Việt Nam, Lào, Triều Tiên."
         },
         correct: "D",
-        explain: "Đây là các quốc gia hiện nay vẫn đang kiên định con đường xã hội chủ nghĩa."
+        explain: "Các quốc gia hiện nay vẫn đang kiên định con đường xã hội chủ nghĩa."
       },
       {
         id: 4,
@@ -700,7 +578,7 @@
           D: "Việt Nam."
         },
         correct: "C",
-        explain: "Ấn Độ theo thể chế cộng hòa liên bang dân chủ nghị viện, không theo định hướng XHCN."
+        explain: "Ấn Độ không xây dựng nhà nước theo con đường xã hội chủ nghĩa."
       },
       {
         id: 5,
@@ -712,7 +590,7 @@
           D: "Cu Ba."
         },
         correct: "D",
-        explain: "Cuba là biểu tượng kiên cường kiên định con đường XHCN tại khu vực Mỹ Latinh."
+        explain: "Cuba là quốc gia kiên định con đường XHCN tại khu vực Mỹ Latinh."
       },
       {
         id: 6,
@@ -724,7 +602,7 @@
           D: "tập trung cải cách triệt để về kinh tế."
         },
         correct: "A",
-        explain: "Hội nghị Trung ương 3 (Khóa XI) ĐCSTQ xác định chuyển trọng tâm công tác sang phát triển kinh tế."
+        explain: "Trung ương Đảng Cộng sản Trung Quốc xác định lấy phát triển kinh tế làm trọng tâm."
       },
       {
         id: 7,
@@ -736,7 +614,7 @@
           D: "chủ nghĩa cơ hội."
         },
         correct: "A",
-        explain: "Chứng minh đường lối đổi mới xây dựng CNXH đặc sắc Trung Quốc là đúng đắn."
+        explain: "Minh chứng cho tính đúng đắn của con đường xây dựng chủ nghĩa xã hội đặc sắc Trung Quốc."
       },
       {
         id: 8,
@@ -748,7 +626,7 @@
           D: "Vươn lên trở thành cường quốc công nghiệp."
         },
         correct: "A",
-        explain: "Kinh tế Trung Quốc liên tục duy trì tốc độ tăng trưởng GDP bình quân hàng năm rất cao và ổn định."
+        explain: "Tốc độ tăng trưởng GDP của Trung Quốc liên tục đạt mức rất cao và ổn định qua các thập kỷ."
       },
       {
         id: 9,
@@ -760,7 +638,7 @@
           D: "Đạt được những tiến bộ vượt bậc trong lĩnh vực công nghệ mới."
         },
         correct: "C",
-        explain: "Trung Quốc đạt nhiều thành tựu lớn nhưng chưa phải là cường quốc sáng tạo đứng đầu thế giới (vẫn sau Mỹ)."
+        explain: "Trung Quốc phát triển mạnh nhưng chưa phải cường quốc đổi mới sáng tạo đứng đầu thế giới (vẫn đứng sau Mỹ)."
       },
       {
         id: 10,
@@ -772,7 +650,7 @@
           D: "Trung Quốc."
         },
         correct: "D",
-        explain: "Năm 2010, GDP của Trung Quốc đã chính thức vượt Nhật Bản để vươn lên vị trí thứ hai thế giới (sau Mỹ)."
+        explain: "Năm 2010, GDP của Trung Quốc đã vượt qua Nhật Bản để vươn lên đứng thứ hai thế giới."
       },
       {
         id: 11,
@@ -784,7 +662,7 @@
           D: "thường xuyên gây ra nhiều cuộc chiến tranh xâm và nô dịch các nước láng giềng."
         },
         correct: "A",
-        explain: "Chính sách đối ngoại cởi mở, bình thường hóa và mở rộng quan hệ hữu nghị với các nước trên thế giới."
+        explain: "Nhờ chính sách đối ngoại cởi mở, bình thường hóa và mở rộng hợp tác toàn diện với quốc tế."
       },
       {
         id: 12,
@@ -796,7 +674,7 @@
           D: "Phóng thành công tàu vũ trụ."
         },
         correct: "D",
-        explain: "Thành tựu tiêu biểu là phóng tàu vũ trụ Thần Châu đưa người bay vào không gian thành công."
+        explain: "Phóng thành công tàu vũ trụ đưa người vào không gian (chương trình Thần Châu)."
       },
       {
         id: 13,
@@ -808,7 +686,7 @@
           D: "Pháp."
         },
         correct: "A",
-        explain: "Trung Quốc vượt qua Nhật Bản để giữ vị trí nền kinh tế thứ 2 thế giới."
+        explain: "Trung Quốc là nền kinh tế châu Á vươn lên vị trí thứ 2 toàn cầu vào năm 2010."
       },
       {
         id: 14,
@@ -820,7 +698,7 @@
           D: "Vị trí đứng đầu thế giới."
         },
         correct: "A",
-        explain: "Quy mô GDP đứng vững chắc ở vị trí thứ hai toàn cầu."
+        explain: "Giữ vững vị thế nền kinh tế có quy mô đứng thứ hai thế giới."
       },
       {
         id: 15,
@@ -832,7 +710,7 @@
           D: "Đưa cơ chế tập trung, quan liêu bao cấp thành xu thế chủ đạo."
         },
         correct: "B",
-        explain: "Giúp Trung Quốc hội nhập sâu rộng vào các tổ chức quốc tế và kinh tế thế giới."
+        explain: "Tạo điều kiện thuận lợi cho sự hội nhập quốc tế sâu rộng trên mọi lĩnh vực."
       },
       {
         id: 16,
@@ -844,7 +722,7 @@
           D: "đổi mới toàn diện là yêu cầu cấp bách của tất cả các nước."
         },
         correct: "A",
-        explain: "Chứng minh sự thích ứng và sức sống mãnh liệt của CNXH khi đổi mới phù hợp với thực tiễn."
+        explain: "Minh chứng cho tính đúng đắn của đường lối cải cách và đổi mới phù hợp hoàn cảnh thực tiễn."
       },
       {
         id: 17,
@@ -856,7 +734,7 @@
           D: "lan rộng sang các nước ở Tây Âu."
         },
         correct: "A",
-        explain: "Từ một nước đơn lẻ (Liên Xô) đã phát triển thành hệ thống xã hội chủ nghĩa thế giới."
+        explain: "Phát triển từ phạm vi một quốc gia đơn lẻ thành một hệ thống rộng khắp trên thế giới."
       },
       {
         id: 18,
@@ -868,7 +746,7 @@
           D: "vượt ra khỏi phạm vi một vùng, trở thành một hệ thống toàn cầu."
         },
         correct: "A",
-        explain: "Mốc quan trọng giúp CNXH vượt khỏi khuôn khổ một quốc gia Liên Xô."
+        explain: "Vượt ra khỏi phạm vi một nước Liên Xô để trở thành hệ thống thế giới."
       },
       {
         id: 19,
@@ -880,7 +758,7 @@
           D: "Nước Cộng hòa Dân chủ Nhân dân Lào thành lập (1975)."
         },
         correct: "A",
-        explain: "Sự ra đời của nước CHND Trung Hoa (10/1949) nối liền CNXH từ Âu sang Á."
+        explain: "Cách mạng Trung Quốc thành công (1949) đưa CNXH nối liền từ Âu sang Á."
       },
       {
         id: 20,
@@ -892,7 +770,7 @@
           D: "Thắng lợi của cách mạng Cu-ba (1959)."
         },
         correct: "D",
-        explain: "Cách mạng Cuba thành công năm 1959 đưa CNXH vươn tới Tây bán cầu."
+        explain: "Thắng lợi của Cách mạng Cuba năm 1959 đưa CNXH vươn sang khu vực Mỹ Latinh."
       },
       {
         id: 21,
@@ -904,7 +782,7 @@
           D: "Năm 1961, Cu-ba bước vào thời kì xây dựng xã hội nghĩa."
         },
         correct: "C",
-        explain: "Nước CHND Trung Hoa thành lập ngày 1/10/1949 mở rộng không gian địa lý của hệ thống XHCN."
+        explain: "Nước CHND Trung Hoa thành lập ngày 1/10/1949 đánh dấu sự mở rộng sang châu Á."
       },
       {
         id: 22,
@@ -916,7 +794,7 @@
           D: "đánh dấu cuộc kháng chiến chống Nhật kết thúc."
         },
         correct: "B",
-        explain: "Đưa chủ nghĩa xã hội phát triển thành một hệ thống rộng lớn trải khắp các châu lục."
+        explain: "Đánh dấu chủ nghĩa xã hội phát triển trải rộng khắp các châu lục thành hệ thống thế giới."
       },
       {
         id: 23,
@@ -928,7 +806,7 @@
           D: "Phát triển thần kì"
         },
         correct: "A",
-        explain: "Trong giai đoạn này, các nước Đông Âu xây dựng cơ sở vật chất kỹ thuật và đạt nhiều thành tựu to lớn."
+        explain: "Các nước Đông Âu xây dựng cơ sở vật chất kỹ thuật và đạt được nhiều bước tiến, thành tựu to lớn."
       },
       {
         id: 24,
@@ -940,7 +818,7 @@
           D: "kinh tế, xã hội."
         },
         correct: "D",
-        explain: "Khủng hoảng sâu sắc bắt đầu từ kinh tế sau đó lan rộng sang toàn bộ đời sống xã hội và chính trị."
+        explain: "Khủng hoảng trầm trọng về kinh tế và xã hội, kéo theo khủng hoảng chính trị."
       },
       {
         id: 25,
@@ -952,7 +830,7 @@
           D: "Cải cách ruộng đất."
         },
         correct: "D",
-        explain: "Hoàn thành cải cách ruộng đất và các nhiệm vụ dân chủ nhân dân, tiến lên xây dựng CNXH."
+        explain: "Hoàn thành nhiệm vụ cải cách ruộng đất và các biện pháp dân chủ nhân dân."
       },
       {
         id: 26,
@@ -964,7 +842,7 @@
           D: "công nghiệp hóa xã hội chủ nghĩa."
         },
         correct: "A",
-        explain: "Tịch thu ruộng đất của địa chủ chia cho nông dân nghèo (cải cách ruộng đất)."
+        explain: "Cải cách ruộng đất để chia ruộng đất cho nông dân nghèo."
       },
       {
         id: 27,
@@ -976,7 +854,7 @@
           D: "Công nghiệp hóa, hiện đại hóa đất nước."
         },
         correct: "A",
-        explain: "Khôi phục sản xuất sau chiến tranh và từng bước nâng cao đời sống nhân dân."
+        explain: "Nhanh chóng khôi phục sản xuất sau chiến tranh và cải thiện đời sống nhân dân."
       },
       {
         id: 28,
@@ -988,7 +866,7 @@
           D: "sự chống phá của các thế lực thù địch ở trong nước."
         },
         correct: "C",
-        explain: "Nguyên nhân sâu xa là mô hình tập trung quan liêu bao cấp, duy ý chí và thiếu dân chủ."
+        explain: "Đường lối lãnh đạo mang nặng tính chủ quan, duy ý chí và mô hình kinh tế tập trung quan liêu kéo dài."
       },
       {
         id: 29,
@@ -1000,7 +878,7 @@
           D: "phạm phải nhiều sai lầm khi cải tổ."
         },
         correct: "A",
-        explain: "Chiến lược 'diễn biến hòa bình' và sự can thiệp, chống phá từ các thế lực đế quốc bên ngoài."
+        explain: "Sự can thiệp và chiến lược chống phá quyết liệt của các thế lực thù địch bên ngoài."
       },
       {
         id: 30,
@@ -1012,17 +890,51 @@
           D: "Sự chống phá của các thế lực thù địch ở trong nước và các thế lực bên ngoài."
         },
         correct: "C",
-        explain: "Nhân dân luôn ủng hộ lý tưởng CNXH, nguyên nhân sụp đổ bắt nguồn từ sai lầm trong lãnh đạo và cải tổ."
+        explain: "Quần chúng nhân dân vẫn luôn hướng về lý tưởng XHCN, nguyên nhân sụp đổ là do sự sai lầm trong lãnh đạo và cải tổ."
+      },
+      {
+        id: 31,
+        question: "Từ thành công của công cuộc cải cách, mở cửa ở Trung Quốc (từ năm 1978) có thể rút ra bài học kinh nghiệm nào cho Việt Nam trong công cuộc đổi mới đất nước hiện nay?",
+        options: {
+          A: "Lấy đổi mới kinh tế làm trọng tâm, tập trung vốn cho ngành dịch vụ du lịch.",
+          B: "Kiên định thực hiện nguyên tắc thống nhất, tập trung, dân chủ, lấy dân làm gốc.",
+          C: "Lấy đổi mới chính trị làm trọng tâm và kiên định sự lãnh đạo của Đảng Cộng sản.",
+          D: "Thực hiện mở cửa, hội nhập quốc tế, áp dụng hiệu quả khoa học - kĩ thuật."
+        },
+        correct: "D",
+        explain: "Thực hiện mở cửa, hội nhập quốc tế và áp dụng mạnh mẽ các tiến bộ khoa học – kỹ thuật."
+      },
+      {
+        id: 32,
+        question: "Những thắng lợi của cách mạng Trung Quốc (1949), Việt Nam (1954), Cuba (1959) có ý nghĩa nào sau đây?",
+        options: {
+          A: "Mở rộng không gian địa lí của chủ nghĩa xã hội.",
+          B: "Sự thắng thế của chủ nghĩa xã hội với chủ nghĩa tư bản.",
+          C: "Chủ nghĩa xã hội trở thành đối trọng với chủ nghĩa tư bản.",
+          D: "đánh dấu chủ nghĩa xã hội vượt ra khỏi phạm vi một nước và trở thành hệ thống thế giới."
+        },
+        correct: "A",
+        explain: "Mở rộng không gian địa lý của hệ thống xã hội chủ nghĩa sang các châu lục khác."
+      },
+      {
+        id: 33,
+        question: "Thành tựu của Liên Xô và Đông Âu trong công cuộc xây dựng cơ sở vật chất của chủ nghĩa xã hội có tác động như thế nào đến tham vọng của Mĩ sau Chiến tranh thế giới thứ hai?",
+        options: {
+          A: "Tạo ra sự đối trọng với hệ thống tư bản chủ nghĩa.",
+          B: "Làm đảo lộn chiến lược toàn cầu của Mĩ.",
+          C: "Tạo ra sự cân bằng về sức mạnh quân sự."
+        },
+        correct: "B",
+        explain: "Làm đảo lộn chiến lược toàn cầu mưu toan làm bá chủ thế giới của Mỹ."
       }
     ];
 
     let currentLesson = 1;
     const stats = {
-      1: { done: 0, correct: 0, wrong: 0, answeredItems: {} },
-      2: { done: 0, correct: 0, wrong: 0, answeredItems: {} }
+      1: { done: 0, correct: 0, wrong: 0, total: 20, answeredItems: {} },
+      2: { done: 0, correct: 0, wrong: 0, total: 33, answeredItems: {} }
     };
 
-    // Render danh sách câu hỏi
     function renderQuiz(list, containerId, lessonNum) {
       const container = document.getElementById(containerId);
       container.innerHTML = "";
@@ -1061,10 +973,9 @@
     renderQuiz(dataLesson1, "list-lesson-1", 1);
     renderQuiz(dataLesson2, "list-lesson-2", 2);
 
-    // Xử lý khi người dùng ấn vào 1 đáp án
     function handleAnswer(lessonNum, qId, selectedKey) {
       const currentStats = stats[lessonNum];
-      if (currentStats.answeredItems[qId]) return; // Đã trả lời rồi thì không cho bấm lại
+      if (currentStats.answeredItems[qId]) return;
 
       const lessonData = lessonNum === 1 ? dataLesson1 : dataLesson2;
       const question = lessonData.find(q => q.id === qId);
@@ -1078,8 +989,7 @@
       const card = document.getElementById(`card-l${lessonNum}-${qId}`);
       const explainBox = document.getElementById(`explain-l${lessonNum}-${qId}`);
 
-      // Vô hiệu hóa tất cả các nút của câu này
-      for (const key of ['A', 'B', 'C', 'D']) {
+      for (const key of Object.keys(question.options)) {
         const btn = document.getElementById(`btn-l${lessonNum}-${qId}-${key}`);
         if (btn) btn.disabled = true;
       }
@@ -1087,7 +997,6 @@
       explainBox.style.display = "block";
 
       if (selectedKey === question.correct) {
-        // ĐÚNG
         currentStats.correct++;
         selectedBtn.classList.add("selected-correct");
         card.style.borderColor = "var(--correct)";
@@ -1095,10 +1004,9 @@
         explainBox.style.color = "#065f46";
         explainBox.innerHTML = `<strong>CHÍNH XÁC!</strong> ${question.explain}`;
       } else {
-        // SAI
         currentStats.wrong++;
         selectedBtn.classList.add("selected-wrong");
-        correctBtn.classList.add("reveal-correct"); // Tô xanh đáp án đúng ra cho thấy
+        if (correctBtn) correctBtn.classList.add("reveal-correct");
         card.style.borderColor = "var(--wrong)";
         explainBox.style.background = "var(--wrong-bg)";
         explainBox.style.color = "#991b1b";
@@ -1111,11 +1019,11 @@
     function updateStatsUI() {
       const current = stats[currentLesson];
       document.getElementById("stat-done").textContent = current.done;
+      document.getElementById("stat-total").textContent = current.total;
       document.getElementById("stat-correct").textContent = current.correct;
       document.getElementById("stat-wrong").textContent = current.wrong;
     }
 
-    // Chuyển bài
     function switchLesson(lessonNum) {
       currentLesson = lessonNum;
 
@@ -1129,17 +1037,19 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Làm lại bài hiện tại
     function resetCurrentLesson() {
-      if (!confirm(`Bạn có chắc muốn làm lại Bài ${currentLesson} từ đầu không?`)) return;
+      if (!confirm(`Bạn có muốn làm lại từ đầu Bài ${currentLesson} không?`)) return;
 
-      stats[currentLesson] = { done: 0, correct: 0, wrong: 0, answeredItems: {} };
+      const total = currentLesson === 1 ? 20 : 33;
+      stats[currentLesson] = { done: 0, correct: 0, wrong: 0, total: total, answeredItems: {} };
       const lessonData = currentLesson === 1 ? dataLesson1 : dataLesson2;
 
       renderQuiz(lessonData, `list-lesson-${currentLesson}`, currentLesson);
       updateStatsUI();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    updateStatsUI();
   </script>
 </body>
 </html>
